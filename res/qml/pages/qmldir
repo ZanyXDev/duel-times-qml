@@ -1,0 +1,2 @@
+module pages
+InitPage 1.0 init_page.qml

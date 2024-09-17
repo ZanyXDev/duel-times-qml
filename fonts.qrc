@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/fonts/681-font.otf</file>
+        <file>res/fonts/droidsansmono.ttf</file>
+    </qresource>
+</RCC>
