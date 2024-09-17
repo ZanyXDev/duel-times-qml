@@ -1,7 +1,9 @@
 # DUEL TIMES
-*A simple speed game dedicated to kids for learning and reviewing multiplication tables*
+*A simple speed game dedicated to kids for learning and reviewing multiplication tables rewited to Qt5/QML*
 
-**Based on** Emanuel Colombo version  [https://www.msec.it/duel-times/](https://www.msec.it/duel-times/)
+**Based on** [Emanuel Colombo version](https://github.com/colomboe/duel-times)
+
+ Play on line Emanuel Colombo [version](https://www.msec.it/duel-times/)
 
 ## Author
 Emanuele Colombo ([https://msec.it](https://msec.it))
