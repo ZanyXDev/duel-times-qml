@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15 as QQC2
 import QtGraphicalEffects 1.15
 import Qt.labs.settings 1.0
+import QtMultimedia 5.15
 
 import common 1.0
 import pages 1.0
@@ -101,9 +102,7 @@ QQC2.ApplicationWindow {
 
     InitPage {
       id: initPage
-      onShowNextPage: {
-        console.trace()
-        AppSingleton.toLog(`onShowNextPage`)
+      onShowSelectCharacterPage: {
         if (fadeLayout.count > 1) {
           fadeLayout.currentIndex++
         }
@@ -128,27 +127,13 @@ QQC2.ApplicationWindow {
     property alias enableMusics: appWnd.enableMusics
   }
 
-  Timer {
-    id: timerT1
-    interval: AppSingleton.timer2000
-    repeat: true
-    running: false
-    onTriggered: {
-      if (isDebugMode) {
-
-        // fadeLayout.currentIndex = 1
-      } else {
-        var idx = fadeLayout.currentIndex
-
-        if (idx < fadeLayout.count) {
-          idx++
-        }
-        if (idx == fadeLayout.count) {
-          idx = 0
-        }
-        fadeLayout.currentIndex = idx
-      }
-    }
+  Audio {
+    id: introMusic
+    autoPlay: appWnd.enableMusics
+    volume: appWnd.musicsVolume
+    source: "qrc:/res/sounds/in-game.mp3"
+    loops: Audio.Infinite
+    audioRole: Audio.GameRole
   }
 
   // ----- JavaScript functions
@@ -157,32 +142,3 @@ QQC2.ApplicationWindow {
     appWnd.x = (Screen.desktopAvailableWidth / 2) - (width / 2)
   }
 }
-
-/**
-    Item {
-  splashScreen
-      /**
-       //3..2..1..go
-                  Timer {
-                      id: countdownTimer
-                      interval: 1000
-                      running: root.countdown < 5
-                      repeat: true
-                      onTriggered: root.countdown++
-                  }
-                  Repeater {
-                      model: ["content/gfx/text-blank.png", "content/gfx/text-3.png", "content/gfx/text-2.png", "content/gfx/text-1.png", "content/gfx/text-go.png"]
-                      delegate: Image {
-                          visible: root.countdown <= index
-                          opacity: root.countdown == index ? 0.5 : 0.1
-                          scale: root.countdown >= index ? 1.0 : 0.0
-                          source: modelData
-                          Behavior on opacity { NumberAnimation {} }
-                          Behavior on scale { NumberAnimation {} }
-                      }
-                  }
-
-
-    }
-  */
-

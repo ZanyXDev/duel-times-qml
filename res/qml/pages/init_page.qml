@@ -12,7 +12,7 @@ QQC2.Page {
   // Required properties should be at the top.
 
   // ----- Signal declarations
-  signal showNextPage
+  signal showSelectCharacterPage
   property bool pageActive: false
 
   // ----- Size information
@@ -61,7 +61,7 @@ QQC2.Page {
       if (appWnd.enableSounds) {
         btnClik.play()
       }
-      root.showNextPage()
+      root.showSelectCharacterPage()
     }
   }
   // ----- Qt provided non-visual children
@@ -70,15 +70,6 @@ QQC2.Page {
     id: btnClik
     source: "qrc:/res/sounds/sfx/button-click.wav"
     volume: appWnd.soundsVolume
-  }
-
-  Audio {
-    id: introMusic
-    autoPlay: appWnd.enableMusics
-    volume: appWnd.musicsVolume
-    source: "qrc:/res/sounds/in-game.mp3"
-    loops: Audio.Infinite
-    audioRole: Audio.GameRole
   }
 
   SequentialAnimation {
