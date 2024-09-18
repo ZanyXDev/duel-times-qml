@@ -66,6 +66,7 @@ QQC2.Page {
         btnClik.play()
       }
       root.showSelectCharacterPage()
+      root.pageActive = false
     }
   }
   // ----- Qt provided non-visual children

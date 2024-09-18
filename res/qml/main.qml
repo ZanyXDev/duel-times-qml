@@ -100,6 +100,7 @@ QQC2.ApplicationWindow {
       id: initPage
       onShowSelectCharacterPage: {
         fadeLayout.currentIndex++
+        selectCharPage.pageActive =true
       }
     }
 
