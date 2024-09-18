@@ -99,15 +99,14 @@ QQC2.ApplicationWindow {
     InitPage {
       id: initPage
       onShowSelectCharacterPage: {
-        if (fadeLayout.count > 1) {
-          fadeLayout.currentIndex++
-        }
+        fadeLayout.currentIndex++
       }
     }
 
-    // GamePage {
-    //   id: gamePage
-    // }
+    SelectCharacter {
+      id: selectCharPage
+    }
+
     Component.onCompleted: {
       initPage.pageActive = true
     }

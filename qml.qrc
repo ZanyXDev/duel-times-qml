@@ -7,9 +7,10 @@
         <file>res/qml/common/app_ver_txt.qml</file>
         <file>res/qml/common/mydebugrect.qml</file>
         <file>res/qml/common/fade_stack_layout.qml</file>
-        <file>res/qml/pages/qmldir</file>
-        <file>res/qml/pages/init_page.qml</file>
         <file>res/qml/ui_items/qmldir</file>
         <file>res/qml/ui_items/shaders_button.qml</file>
+        <file>res/qml/pages/qmldir</file>
+        <file>res/qml/pages/init_page.qml</file>
+        <file>res/qml/pages/select_char_page.qml</file>
     </qresource>
 </RCC>
