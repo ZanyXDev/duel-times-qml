@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/sounds/sfx/button-click.wav</file>
+    </qresource>
+</RCC>

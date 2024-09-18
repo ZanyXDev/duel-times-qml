@@ -4,12 +4,12 @@ import QtQuick.Controls 2.15 as QQC2
 import QtGraphicalEffects 1.0
 import common 1.0
 
+
 QQC2.Button {
   id: root
 
   property bool effectsOn: true
   property color particleColor: "green"
-  opacity: 0.8
   state: pressed ? "buttonDown" : "buttonUp"
 
   font {

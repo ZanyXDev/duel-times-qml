@@ -1,5 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15 as QQC2
+import QtMultimedia 5.15
+
 import common 1.0
 import ui_items 1.0
 
@@ -48,39 +50,39 @@ QQC2.Page {
   SButton {
     id: tapToStartBtn
     text: qsTr("Tap to Start")
+    visible: false
+    opacity: 0
     anchors {
       bottom: parent.bottom
       bottomMargin: 40 * DevicePixelRatio
       horizontalCenter: parent.horizontalCenter
     }
+    onClicked: {
+      btnClik.play()
+      root.showNextPage()
+    }
   }
   // ----- Qt provided non-visual children
+  // Sounds
+  SoundEffect {
+    id: btnClik
+    source: "qrc:/res/sounds/sfx/button-click.wav"
+  }
+
   SequentialAnimation {
     id: showAnimation
     PropertyAction {
-      targets: [appVerText]
+      targets: [tapToStartBtn, appVerText]
       property: "visible"
       value: true
     }
     NumberAnimation {
-      targets: [appVerText]
+      targets: [tapToStartBtn, appVerText]
       properties: "opacity"
       from: 0
-      to: 1
+      to: 0.8
       duration: AppSingleton.timer2000
       easing.type: Easing.Linear
-    }
-    ScriptAction {
-      script: autoStartTimer.start()
-    }
-  }
-  Timer {
-    id: autoStartTimer
-    interval: AppSingleton.timer2000
-    repeat: false
-    running: false
-    onTriggered: {
-      root.showNextPage()
     }
   }
 }
