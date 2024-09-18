@@ -10,13 +10,23 @@ QtObject {
   readonly property int smallFontSize: 12
   readonly property int tinyFontSize: 10
 
-  property FontLoader gameFont: FontLoader {
-    id: gameFont
+  property FontLoader droidFont: FontLoader {
+    id: droidFont
     source: "qrc:/res/fonts/droidsansmono.ttf"
   }
- property FontLoader digitalFont: FontLoader {
+  property FontLoader digitalFont: FontLoader {
     id: digitalFont
     source: "qrc:/res/fonts/681-font.otf"
+  }
+
+  property FontLoader gameFont: FontLoader {
+    id: gameFont
+    source: "qrc:/res/fonts/mailrays.ttf"
+  }
+
+  property FontLoader baseFont: FontLoader {
+    id: baseFont
+    source: "qrc:/res/fonts/nasalization-rg.otf"
   }
 
   /* This is msecs. Half of second is enough for smooth animation. */
