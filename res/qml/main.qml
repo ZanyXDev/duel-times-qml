@@ -21,6 +21,10 @@ QQC2.ApplicationWindow {
   readonly property bool appInForeground: Qt.application.state === Qt.ApplicationActive
 
   property bool appInitialized: false
+  property bool enableSounds: mSettings.enableSounds
+  property bool enableMusics: mSettings.enableMusics
+  property real soundsVolume: mSettings.soundsVolume
+  property real musicsVolume: mSettings.musicsVolume
 
   // ----- Signal declarations
   signal screenOrientationUpdated(int screenOrientation)
@@ -44,12 +48,20 @@ QQC2.ApplicationWindow {
   // ----- Then attached properties and attached signal handlers.
 
   // ----- Signal handlers
+  onEnableSoundsChanged: {
+    soundsVolume(enableSounds) ? 1.0 : 0.0
+  }
+  onEnableMusicsChanged: {
+    musicsVolume(enableMusics) ? 1.0 : 0.0
+  }
+
   Component.onCompleted: {
     let infoMsg = `Screen.height[${Screen.height}], Screen.width[${Screen.width}]
     DevicePixelRatio :[${DevicePixelRatio}]
     Screen [height ${height},width ${width}]
     Build with [${HAL.getAppBuildInfo()}]
     Available physical screens [${Qt.application.screens.length}]
+
     `
     AppSingleton.toLog(infoMsg)
     appWnd.moveToCenter()
@@ -57,10 +69,10 @@ QQC2.ApplicationWindow {
 
   Component.onDestruction: {
 
-    //    let bgrIndex = mSettings.currentBgrIndex
-    //  bgrIndex++
-    // mSettings.currentBgrIndex = (bgrIndex < 20) ? bgrIndex : 0
-    //mSettings.currentLevelId = gamePage.currentLevel
+    // mSettings.enableSounds = appWnd.enableSounds
+    // mSettings.enableMusics = appWnd.enableMusics
+    // mSettings.soundsVolume = appWnd.soundsVolume
+    // mSettings.musicsVolume = appWnd.musicsVolume
   }
 
   onAppInForegroundChanged: {
@@ -110,8 +122,10 @@ QQC2.ApplicationWindow {
   Settings {
     id: mSettings
     category: "Settings"
-    property int currentBgrIndex
-    // property alias currentLevelId: gamePage.currentLevel
+    property real soundsVolume: 0.0
+    property real musicsVolume: 0.0
+    property alias enableSounds: appWnd.enableSounds
+    property alias enableMusics: appWnd.enableMusics
   }
 
   Timer {

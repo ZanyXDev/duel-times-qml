@@ -58,7 +58,9 @@ QQC2.Page {
       horizontalCenter: parent.horizontalCenter
     }
     onClicked: {
-      btnClik.play()
+      if (appWnd.enableSounds) {
+        btnClik.play()
+      }
       root.showNextPage()
     }
   }
@@ -67,6 +69,16 @@ QQC2.Page {
   SoundEffect {
     id: btnClik
     source: "qrc:/res/sounds/sfx/button-click.wav"
+    volume: appWnd.soundsVolume
+  }
+
+  Audio {
+    id: introMusic
+    autoPlay: appWnd.enableMusics
+    volume: appWnd.musicsVolume
+    source: "qrc:/res/sounds/in-game.mp3"
+    loops: Audio.Infinite
+    audioRole: Audio.GameRole
   }
 
   SequentialAnimation {
