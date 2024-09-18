@@ -27,11 +27,15 @@ QQC2.Page {
   Component.onCompleted: {
     AppSingleton.toLog(`InitPage [${root.height}h,${root.width}w]`)
   }
-  // ----- Visual children.
-  background: {
-    null
-  }
 
+  // ----- Visual children.
+  background: Image {
+    id: background
+    anchors.fill: parent
+    source: "qrc:/res/images/title.jpg"
+    fillMode: Image.PreserveAspectCrop
+    opacity: 0.8
+  }
   AppVersionTxt {
     id: appVerText
     text: "v. " + AppVersion

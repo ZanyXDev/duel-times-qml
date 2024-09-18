@@ -88,12 +88,8 @@ QQC2.ApplicationWindow {
     }
   }
 
-  background: Image {
-    id: background
-    anchors.fill: parent
-    source: "qrc:/res/images/title.jpg"
-    fillMode: Image.PreserveAspectCrop
-    opacity: 0.8
+  background: {
+    null
   }
 
   // ----- Visual children
