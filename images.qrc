@@ -60,5 +60,6 @@
         <file>res/images/rivals/snail.jpeg</file>
         <file>res/images/rivals/tiger-defeated.jpeg</file>
         <file>res/images/rivals/tiger.jpeg</file>
+        <file>res/images/particles/star.png</file>
     </qresource>
 </RCC>

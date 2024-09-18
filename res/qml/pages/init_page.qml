@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15 as QQC2
 import common 1.0
+import ui_items 1.0
 
 QQC2.Page {
   id: root
@@ -44,9 +45,14 @@ QQC2.Page {
     }
   }
 
-  BaseButton {
+  SButton {
     id: tapToStartBtn
     text: qsTr("Tap to Start")
+    anchors {
+      bottom: parent.bottom
+      bottomMargin: 40 * DevicePixelRatio
+      horizontalCenter: parent.horizontalCenter
+    }
   }
   // ----- Qt provided non-visual children
   SequentialAnimation {
