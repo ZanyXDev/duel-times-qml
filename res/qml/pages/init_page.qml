@@ -44,6 +44,10 @@ QQC2.Page {
     }
   }
 
+  BaseButton {
+    id: tapToStartBtn
+    text: qsTr("Tap to Start")
+  }
   // ----- Qt provided non-visual children
   SequentialAnimation {
     id: showAnimation
