@@ -38,18 +38,21 @@ QQC2.ApplicationWindow {
   visibility: (isMobile) ? Window.FullScreen : Window.Windowed
   flags: Qt.Dialog
   title: qsTr(" ")
-  x: 15
+
   //Screen.orientationUpdateMask: Qt.LandscapeOrientation
 
   // ----- Then attached properties and attached signal handlers.
 
   // ----- Signal handlers
   Component.onCompleted: {
-    AppSingleton.toLog(
-          `Screen.height[${Screen.height}], Screen.width[${Screen.width}]`)
-    AppSingleton.toLog(`DevicePixelRatio :[${DevicePixelRatio}]`)
-    AppSingleton.toLog(`Screen height ${height},width ${width}`)
-    AppSingleton.toLog(`Qt verion build ${HAL.getAppBuildInfo()}`)
+    let infoMsg = `Screen.height[${Screen.height}], Screen.width[${Screen.width}]
+    DevicePixelRatio :[${DevicePixelRatio}]
+    Screen [height ${height},width ${width}]
+    Build with [${HAL.getAppBuildInfo()}]
+    Available physical screens [${Qt.application.screens.length}]
+    `
+    AppSingleton.toLog(infoMsg)
+    appWnd.moveToCenter()
   }
 
   Component.onDestruction: {
@@ -75,7 +78,7 @@ QQC2.ApplicationWindow {
   background: Image {
     id: background
     anchors.fill: parent
-    //source: Logic.getRandomBgrImage(mSettings.currentBgrIndex)
+    source: "qrc:/res/images/title.jpg"
     fillMode: Image.PreserveAspectCrop
     opacity: 0.8
   }
