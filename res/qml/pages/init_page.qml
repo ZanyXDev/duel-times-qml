@@ -15,6 +15,9 @@ QQC2.Page {
   signal showSelectCharacterPage
   property bool pageActive: false
 
+  property real soundsVolume
+  property bool enableSounds
+
   // ----- Size information
   // ----- Then comes the other properties. There's no predefined order to these.
   onPageActiveChanged: {
@@ -62,7 +65,7 @@ QQC2.Page {
       horizontalCenter: parent.horizontalCenter
     }
     onClicked: {
-      if (appWnd.enableSounds) {
+      if (enableSounds) {
         btnClik.play()
       }
       root.showSelectCharacterPage()
@@ -74,7 +77,7 @@ QQC2.Page {
   SoundEffect {
     id: btnClik
     source: "qrc:/res/sounds/sfx/button-click.wav"
-    volume: appWnd.soundsVolume
+    volume: soundsVolume
   }
 
   SequentialAnimation {

@@ -22,10 +22,10 @@ QQC2.ApplicationWindow {
   readonly property bool appInForeground: Qt.application.state === Qt.ApplicationActive
 
   property bool appInitialized: false
-  property bool enableSounds: mSettings.enableSounds
-  property bool enableMusics: mSettings.enableMusics
-  property real soundsVolume: mSettings.soundsVolume
-  property real musicsVolume: mSettings.musicsVolume
+  property real soundsVolume
+  property real musicsVolume
+  property bool enableSounds
+  property bool enableMusics
 
   // ----- Signal declarations
   signal screenOrientationUpdated(int screenOrientation)
@@ -50,10 +50,10 @@ QQC2.ApplicationWindow {
 
   // ----- Signal handlers
   onEnableSoundsChanged: {
-    soundsVolume(enableSounds) ? 1.0 : 0.0
+    soundsVolume = (enableSounds) ? 1.0 : 0.0
   }
   onEnableMusicsChanged: {
-    musicsVolume(enableMusics) ? 1.0 : 0.0
+    musicsVolume = (enableMusics) ? 1.0 : 0.0
   }
 
   Component.onCompleted: {
@@ -62,10 +62,13 @@ QQC2.ApplicationWindow {
     Screen [height ${height},width ${width}]
     Build with [${HAL.getAppBuildInfo()}]
     Available physical screens [${Qt.application.screens.length}]
-
+    mSettings.enableMusics ${mSettings.enableMusics}
     `
     AppSingleton.toLog(infoMsg)
+
     appWnd.moveToCenter()
+    appWnd.restoreSettings()
+    appWnd.enableMusics ? introMusic.play() : introMusic.stop()
   }
 
   Component.onDestruction: {
@@ -98,14 +101,18 @@ QQC2.ApplicationWindow {
 
     InitPage {
       id: initPage
+      soundsVolume: appWnd.soundsVolume
+      enableSounds: appWnd.enableSounds
+
       onShowSelectCharacterPage: {
         fadeLayout.currentIndex++
-        selectCharPage.pageActive =true
+        selectCharPage.pageActive = true
       }
     }
 
     SelectCharacter {
       id: selectCharPage
+      ///ToDo disable into music befor start game
     }
 
     Component.onCompleted: {
@@ -117,8 +124,8 @@ QQC2.ApplicationWindow {
   Settings {
     id: mSettings
     category: "Settings"
-    property real soundsVolume: 0.0
-    property real musicsVolume: 0.0
+    property alias soundsVolume: appWnd.soundsVolume
+    property alias musicsVolume: appWnd.musicsVolume
     property alias enableSounds: appWnd.enableSounds
     property alias enableMusics: appWnd.enableMusics
   }
@@ -136,5 +143,12 @@ QQC2.ApplicationWindow {
   function moveToCenter() {
     appWnd.y = (Screen.desktopAvailableHeight / 2) - (height / 2)
     appWnd.x = (Screen.desktopAvailableWidth / 2) - (width / 2)
+  }
+
+  function restoreSettings() {
+    appWnd.enableSounds = mSettings.enableSounds
+    appWnd.enableMusics = mSettings.enableMusics
+    appWnd.soundsVolume = mSettings.soundsVolume
+    appWnd.musicsVolume = mSettings.musicsVolume
   }
 }
