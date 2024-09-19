@@ -4,6 +4,7 @@ import QtQuick 2.15
 
 QtObject {
   id: root
+  readonly property int extraLargeFontSize: 48
   readonly property int largeFontSize: 36
   readonly property int middleFontSize: 24
   readonly property int averageFontSize: 16
