@@ -54,7 +54,7 @@ QQC2.Page {
     }
   }
 
-  SButton {
+  ShadersButton {
     id: tapToStartBtn
     text: qsTr("Tap to Start")
     visible: false

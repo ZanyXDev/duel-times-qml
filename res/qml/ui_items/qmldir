@@ -1,2 +1,2 @@
 module ui_items
-SButton 1.0 shaders_button.qml
+ShadersButton 1.0 shaders_button.qml
