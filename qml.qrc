@@ -9,6 +9,8 @@
         <file>res/qml/common/fade_stack_layout.qml</file>
         <file>res/qml/ui_items/qmldir</file>
         <file>res/qml/ui_items/shaders_button.qml</file>
+        <file>res/qml/ui_items/img_button.qml</file>
+	<file>res/qml/ui_items/player_card.qml</file>
         <file>res/qml/pages/qmldir</file>
         <file>res/qml/pages/init_page.qml</file>
         <file>res/qml/pages/select_char_page.qml</file>
