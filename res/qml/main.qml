@@ -112,6 +112,8 @@ QQC2.ApplicationWindow {
 
     SelectCharacter {
       id: selectCharPage
+      soundsVolume: appWnd.soundsVolume
+      enableSounds: appWnd.enableSounds
       ///ToDo disable into music befor start game
     }
 
