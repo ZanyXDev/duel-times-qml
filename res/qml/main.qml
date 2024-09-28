@@ -32,7 +32,7 @@ QQC2.ApplicationWindow {
 
   // ----- Size information
   width: (isMobile) ? 640 * DevicePixelRatio : 1280 * DevicePixelRatio
-  height: (isMobile) ? 360 * DevicePixelRatio : 720 * DevicePixelRatio
+  height: (isMobile) ? 360 * DevicePixelRatio : 700 * DevicePixelRatio
   maximumHeight: height
   maximumWidth: width
 
@@ -41,8 +41,9 @@ QQC2.ApplicationWindow {
   // ----- Then comes the other properties. There's no predefined order to these.
   visible: true
   visibility: (isMobile) ? Window.FullScreen : Window.Windowed
-  flags: Qt.Dialog
-  title: qsTr(" ")
+  //ToDo need googled QMl.Window.Flags on mobile phone
+  flags: Qt.Window
+  //title: qsTr(" ")
 
   //Screen.orientationUpdateMask: Qt.LandscapeOrientation
 

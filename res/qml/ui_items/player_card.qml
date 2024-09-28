@@ -12,8 +12,10 @@ Item {
   property alias characterName: nameLabel.text
   property alias characterPicture: characterPicture.source
   property alias sourceSize: characterPicture.sourceSize
+  property int characterId: -1
+
   signal pressed
-  signal clicked
+  signal clicked(int character_id)
   signal hoverChanged
 
   ColumnLayout {
@@ -30,7 +32,7 @@ Item {
 
       Layout.preferredWidth: root.width
       Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-      onClicked: root.clicked()
+      onClicked: root.clicked(characterId)
       onPressed: root.pressed()
       onHoverChanged: root.hoverChanged()
     }
