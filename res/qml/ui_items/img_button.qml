@@ -66,7 +66,7 @@ Item {
       anchors.fill: parent
       hoverEnabled: true
 
-      //cursorShape: isActive ? Qt.PointingHandCursor : Qt.ArrowCursor
+      cursorShape: isActive ? Qt.PointingHandCursor : Qt.ArrowCursor
       onClicked: {
         root.clicked()
       }
