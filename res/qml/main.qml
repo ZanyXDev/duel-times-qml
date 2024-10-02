@@ -107,7 +107,6 @@ QQC2.ApplicationWindow {
 
       onShowSelectCharacterPage: {
         fadeLayout.currentIndex++
-        selectCharPage.pageActive = true
       }
     }
 
@@ -116,9 +115,14 @@ QQC2.ApplicationWindow {
       soundsVolume: appWnd.soundsVolume
       enableSounds: appWnd.enableSounds
       ///ToDo disable into music befor start game
+      onShowStoryPage: {
+        fadeLayout.currentIndex++
+      }
     }
 
     Component.onCompleted: {
+      AppSingleton.toLog(
+            `fadeLayout.currentItem: [${fadeLayout.currentItem} , currentIndex: ${fadeLayout.currentIndex}]`)
       initPage.pageActive = true
     }
   }
