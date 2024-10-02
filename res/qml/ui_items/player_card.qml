@@ -15,7 +15,7 @@ Item {
   property int characterId: -1
 
   signal pressed
-  signal clicked(int character_id)
+  signal clicked
   signal hoverChanged
 
   ColumnLayout {
@@ -32,7 +32,7 @@ Item {
 
       Layout.preferredWidth: root.width
       Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-      onClicked: root.clicked(characterId)
+      onClicked: root.clicked()
       onPressed: root.pressed()
       onHoverChanged: root.hoverChanged()
     }

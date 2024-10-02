@@ -15,7 +15,7 @@ QQC2.Page {
   // Required properties should be at the top.
 
   // ----- Signal declarations
-  signal showStoryPage
+  signal showStoryPage(int character_id)
   property bool pageActive: false
   property real soundsVolume
   property bool enableSounds
@@ -27,7 +27,9 @@ QQC2.Page {
       showAnimation.start()
     }
   }
-
+  Component.onCompleted: {
+    console.log(`On completed pageActive: ${root.pageActive}`)
+  }
   // ----- Visual children.
   background: Rectangle {
     id: bgrRect
@@ -100,7 +102,7 @@ QQC2.Page {
           if (enableSounds) {
             btnClik.play()
           }
-          fadeUnSelected(this.characterId)
+          root.showStroyPage(this.characterId)
         }
       }
 
@@ -183,9 +185,5 @@ QQC2.Page {
       duration: AppSingleton.timer2000
       easing.type: Easing.Linear
     }
-  }
-
-  function fadeUnSelected(char_id) {
-    AppSingleton.toLog(` select char id ${char_id}`)
   }
 }
