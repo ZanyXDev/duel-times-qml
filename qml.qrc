@@ -14,5 +14,6 @@
         <file>res/qml/pages/qmldir</file>
         <file>res/qml/pages/init_page.qml</file>
         <file>res/qml/pages/select_char_page.qml</file>
+        <file>res/qml/pages/test_page.qml</file>
     </qresource>
 </RCC>

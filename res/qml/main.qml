@@ -99,6 +99,10 @@ QQC2.ApplicationWindow {
   FadeStackLayout {
     id: fadeLayout
 
+    TestPage {
+      id: testPage
+    }
+
     InitPage {
       id: initPage
       soundsVolume: appWnd.soundsVolume
