@@ -1,6 +1,9 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15 as QQC2
+import QtMultimedia 5.15
+
 import common 1.0
+import ui_items 1.0
 
 QQC2.Page {
   id: root
@@ -9,8 +12,11 @@ QQC2.Page {
   // Required properties should be at the top.
 
   // ----- Signal declarations
-  signal showNextPage
+  signal showSelectCharacterPage
   property bool pageActive: false
+
+  property real soundsVolume
+  property bool enableSounds
 
   // ----- Size information
   // ----- Then comes the other properties. There's no predefined order to these.
@@ -24,11 +30,15 @@ QQC2.Page {
   Component.onCompleted: {
     AppSingleton.toLog(`InitPage [${root.height}h,${root.width}w]`)
   }
-  // ----- Visual children.
-  background: {
-    null
-  }
 
+  // ----- Visual children.
+  background: Image {
+    id: background
+    anchors.fill: parent
+    source: "qrc:/res/images/title.jpg"
+    fillMode: Image.PreserveAspectCrop
+    opacity: 0.8
+  }
   AppVersionTxt {
     id: appVerText
     text: "v. " + AppVersion
@@ -44,33 +54,45 @@ QQC2.Page {
     }
   }
 
+  ShadersButton {
+    id: tapToStartBtn
+    text: qsTr("Tap to Start")
+    visible: false
+    opacity: 0
+    anchors {
+      bottom: parent.bottom
+      bottomMargin: 40 * DevicePixelRatio
+      horizontalCenter: parent.horizontalCenter
+    }
+    onClicked: {
+      if (enableSounds) {
+        btnClik.play()
+      }
+      root.showSelectCharacterPage()
+    }
+  }
   // ----- Qt provided non-visual children
+  // Sounds
+  SoundEffect {
+    id: btnClik
+    source: "qrc:/res/sounds/sfx/button-click.wav"
+    volume: soundsVolume
+  }
+
   SequentialAnimation {
     id: showAnimation
     PropertyAction {
-      targets: [appVerText]
+      targets: [tapToStartBtn, appVerText]
       property: "visible"
       value: true
     }
     NumberAnimation {
-      targets: [appVerText]
+      targets: [tapToStartBtn, appVerText]
       properties: "opacity"
       from: 0
-      to: 1
+      to: 0.8
       duration: AppSingleton.timer2000
       easing.type: Easing.Linear
-    }
-    ScriptAction {
-      script: autoStartTimer.start()
-    }
-  }
-  Timer {
-    id: autoStartTimer
-    interval: AppSingleton.timer2000
-    repeat: false
-    running: false
-    onTriggered: {
-      root.showNextPage()
     }
   }
 }

@@ -1,2 +1,5 @@
 module pages
 InitPage 1.0 init_page.qml
+SelectCharacter 1.0 select_char_page.qml
+TestPage 1.0 test_page.qml
+

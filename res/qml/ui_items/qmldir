@@ -1,0 +1,4 @@
+module ui_items
+ShadersButton 1.0 shaders_button.qml
+ImageRotateButton 1.0 img_button.qml
+PlayerCard 1.0 player_card.qml

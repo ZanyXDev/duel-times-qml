@@ -37,7 +37,9 @@ RESOURCES += \
         images.qrc \
         qml.qrc \
         fonts.qrc \
-        js.qrc
+        js.qrc \
+        sounds.qrc
+
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH = $$PWD/res/qml
 
