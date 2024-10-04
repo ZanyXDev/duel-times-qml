@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>res/js/logic.js</file>
+        <file>res/js/utils.js</file>
     </qresource>
 </RCC>

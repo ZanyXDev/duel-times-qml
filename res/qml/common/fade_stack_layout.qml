@@ -10,13 +10,6 @@ StackLayout {
   property Item previousItem
   property Item currentItem
 
-  Component.onCompleted: {
-    previousIndex = currentIndex
-    for (var i = 1; i < count; ++i) {
-      children[i].opacity = 0
-    }
-  }
-
   Component {
     id: crossFader
     ParallelAnimation {
@@ -30,7 +23,11 @@ StackLayout {
         duration: AppSingleton.timer500
         easing.type: Easing.Linear
       }
-
+      PropertyAction {
+        targets: [fadeOutTarget]
+        property: "pageActive"
+        value: false
+      }
       NumberAnimation {
         target: fadeInTarget
         property: "opacity"
@@ -38,6 +35,18 @@ StackLayout {
         duration: AppSingleton.timer500
         easing.type: Easing.Linear
       }
+      PropertyAction {
+        targets: [fadeInTarget]
+        property: "pageActive"
+        value: true
+      }
+
+    }
+  }
+  Component.onCompleted: {
+    previousIndex = currentIndex
+    for (var i = 1; i < count; ++i) {
+      children[i].opacity = 0
     }
   }
 

@@ -12,6 +12,8 @@ Item {
   property alias characterName: nameLabel.text
   property alias characterPicture: characterPicture.source
   property alias sourceSize: characterPicture.sourceSize
+  property int characterId: -1
+
   signal pressed
   signal clicked
   signal hoverChanged
