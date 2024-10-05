@@ -98,11 +98,12 @@ QQC2.Page {
         Layout.preferredWidth: root.playerImageSize
         sourceSize.height: root.playerImageSize
         sourceSize.width: root.playerImageSize
+
         onClicked: {
           if (enableSounds) {
             btnClik.play()
           }
-          root.showStoryPage(this.characterId)
+          setupHideAnimation(characterId)
         }
       }
 
@@ -113,29 +114,26 @@ QQC2.Page {
       }
 
       PCard {
-        id: nameRem
+        id: pCardRem
         characterName: qsTr("Rem")
         characterPicture: "qrc:/res/images/players/rem-normal.jpeg"
         characterId: Utils.Char_id.Rem
       }
 
       PCard {
-        id: nameJohn
-
+        id: pCardJohn
         characterName: qsTr("John")
         characterPicture: "qrc:/res/images/players/john-normal.jpeg"
         characterId: Utils.Char_id.John
       }
       PCard {
-        id: nameNino
-
+        id: pCardNino
         characterName: qsTr("Nino")
         characterPicture: "qrc:/res/images/players/nino-normal.jpeg"
         characterId: Utils.Char_id.Nino
       }
       PCard {
-        id: nameFoxy
-
+        id: pCardFoxy
         characterName: qsTr("Foxy")
         characterPicture: "qrc:/res/images/players/foxy-normal.jpeg"
         characterId: Utils.Char_id.Foxy
@@ -163,6 +161,21 @@ QQC2.Page {
   }
 
   // ----- Qt provided non-visual children
+  function setupHideAnimation(char_id) {
+    switch (char_id) {
+    case Utils.Char_id.Rem:
+    {
+      hideAnimation.hideList = [pCardJohn, pCardNino, pCardFoxy, pCardRem]
+      break
+    }
+    default:
+    {
+      break
+    }
+    }
+    hideAnimation.start()
+  }
+
   // Sounds
   SoundEffect {
     id: btnClik
@@ -173,17 +186,37 @@ QQC2.Page {
   SequentialAnimation {
     id: showAnimation
     PropertyAction {
-      targets: [selectCharLabel, nameRem, nameJohn, nameNino, nameFoxy]
+      targets: [selectCharLabel, pCardRem, pCardJohn, pCardNino, pCardFoxy]
       property: "visible"
       value: true
     }
     NumberAnimation {
-      targets: [selectCharLabel, nameRem, nameJohn, nameNino, nameFoxy]
+      targets: [selectCharLabel, pCardRem, pCardJohn, pCardNino, pCardFoxy]
       properties: "opacity"
       from: 0
       to: 0.8
       duration: AppSingleton.timer2000
       easing.type: Easing.Linear
+    }
+  }
+  SequentialAnimation {
+    id: hideAnimation
+    property list<QtObject> hideList
+
+    NumberAnimation {
+      targets: hideAnimation.hideList
+      properties: "opacity"
+      from: 1.0
+      to: 0
+      duration: AppSingleton.timer2000
+
+      easing.type: Easing.Linear
+    }
+
+    PropertyAction {
+      targets: hideAnimation.hideList
+      property: "visible"
+      value: false
     }
   }
 }

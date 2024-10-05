@@ -11,7 +11,7 @@ import pages 1.0
 
 import "qrc:/res/js/logic.js" as Logic
 
-import io.github.zanyxdev.dueltimes.hal 1.0
+import io.github.zanyxdev.duel_times.hal 1.0
 
 QQC2.ApplicationWindow {
   id: appWnd
@@ -31,8 +31,8 @@ QQC2.ApplicationWindow {
   signal screenOrientationUpdated(int screenOrientation)
 
   // ----- Size information
-  width: (isMobile) ? 640 * DevicePixelRatio : 1280 * DevicePixelRatio
-  height: (isMobile) ? 360 * DevicePixelRatio : 700 * DevicePixelRatio
+  width: 640 * DevicePixelRatio //(isMobile) ? 640 * DevicePixelRatio : 1280 * DevicePixelRatio
+  height: 360 * DevicePixelRatio //(isMobile) ? 360 * DevicePixelRatio : 700 * DevicePixelRatio
   maximumHeight: height
   maximumWidth: width
 
@@ -103,7 +103,6 @@ QQC2.ApplicationWindow {
     // TestPage {
     //   id: testPage
     // }
-
     InitPage {
       id: initPage
       soundsVolume: appWnd.soundsVolume
@@ -157,9 +156,9 @@ QQC2.ApplicationWindow {
   }
 
   function restoreSettings() {
-    appWnd.enableSounds = mSettings.enableSounds
-    appWnd.enableMusics = mSettings.enableMusics
-    appWnd.soundsVolume = mSettings.soundsVolume
-    appWnd.musicsVolume = mSettings.musicsVolume
+    appWnd.enableSounds = true //mSettings.enableSounds
+    appWnd.enableMusics = true //mSettings.enableMusics
+    appWnd.soundsVolume = 1.0 //mSettings.soundsVolume
+    appWnd.musicsVolume = 1.0 //mSettings.musicsVolume
   }
 }

@@ -1,7 +1,7 @@
 !versionAtLeast(QT_VERSION, 5.15.0):error("Requires Qt version 5.15.0 or greater.")
 
 TEMPLATE +=app
-TARGET = duel-times-qml
+TARGET = duel_times
 
 QT       += core qml quick quickcontrols2 multimedia svg
 
@@ -71,16 +71,36 @@ add_source_task{
 
 bump_version{
     message("Bump or update App version")
-    #system($$PWD/tools/ci/bump_ver.sh)
+    system($$PWD/tools/ci/bump_ver.sh)
 }
 
 DISTFILES += \
     README.md \
     activity_name.txt \
+    android/AndroidManifest.xml \
+    android/build.gradle \
+    android/gradle.properties \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew \
+    android/gradlew.bat \
+    android/res/values/libs.xml \
     package_name.txt \
     version.txt \
     res/fonts/COPYRIGHT.txt \
     res/fonts/LICENSE \
     res/fonts/LICENSE.txt
+
+android {
+    QT += androidextras
+
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+    disable-xcb {
+        message("The disable-xcb option has been deprecated. Please use disable-desktop instead.")
+        CONFIG += disable-desktop
+    }
+    include(/opt/android-sdk/android_openssl/openssl.pri)
+}
 
 

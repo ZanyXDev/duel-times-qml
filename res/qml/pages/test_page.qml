@@ -36,6 +36,14 @@ QQC2.Page {
     border.width: 4 * DevicePixelRatio
   }
 
+  Text {
+    id: txt1
+    // This user interface string is used only here
+    //: The back of the object, not the front
+    //~ Context Not related to back-stepping
+    text: qsTr("Back", "not front")
+  }
+
   Rectangle {
     id: rect
     anchors.left: parent.left

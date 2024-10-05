@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     QLoggingCategory::setFilterRules(QStringLiteral("qt.qml.binding.removal.info=true"));
 #endif  
     QTranslator myappTranslator;
-    if (  myappTranslator.load(QLocale(), QLatin1String("duel-times-qml"), QLatin1String("_"), QLatin1String(":/res/i18n")) ){
+    if (  myappTranslator.load(QLocale(), QLatin1String("duel_times"), QLatin1String("_"), QLatin1String(":/res/i18n")) ){
         app.installTranslator(&myappTranslator);
     }
 
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
 
     // Register the singleton type provider with QML by calling this
     // function in an initialization function.
-    qmlRegisterSingletonInstance("io.github.zanyxdev.dueltimes.hal", 1, 0,"HAL", m_hal.get());
+    qmlRegisterSingletonInstance("io.github.zanyxdev.duel_times.hal", 1, 0,"HAL", m_hal.get());
     engine.load(url);
 
     return app.exec();

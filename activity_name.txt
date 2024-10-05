@@ -1,1 +1,1 @@
-duel-times
+org.qtproject.qt5.android.bindings.QtActivity
