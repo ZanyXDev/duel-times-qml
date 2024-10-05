@@ -23,6 +23,10 @@
 
 
 int main(int argc, char *argv[]) {
+#ifdef QT_DEBUG
+      QLocale::setDefault(QLocale::English);
+#endif
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
 #endif
@@ -37,17 +41,11 @@ int main(int argc, char *argv[]) {
 
 #ifdef QT_DEBUG
     QLoggingCategory::setFilterRules(QStringLiteral("qt.qml.binding.removal.info=true"));
-#endif
-    /**
-     * @brief myappTranslator
-     */
-    /// TODO add translations
-    //    QTranslator myappTranslator;
-    //    myappTranslator.load(QLocale(),
-    //                         QLatin1String("delight"),
-    //                         QLatin1String("_"),
-    //                         QLatin1String(":/i18n"));
-    //    app.installTranslator(&myappTranslator);
+#endif  
+    QTranslator myappTranslator;
+    if (  myappTranslator.load(QLocale(), QLatin1String("duel-times-qml"), QLatin1String("_"), QLatin1String(":/res/i18n")) ){
+        app.installTranslator(&myappTranslator);
+    }
 
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/res/qml");

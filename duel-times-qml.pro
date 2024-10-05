@@ -38,7 +38,22 @@ RESOURCES += \
         qml.qrc \
         fonts.qrc \
         js.qrc \
-        sounds.qrc
+        sounds.qrc \
+	i18n.qrc
+
+#Translate
+TRANSLATIONS = res/i18n/$${TARGET}_en.ts \
+               res/i18n/$${TARGET}_ru.ts
+
+lupdate_only {
+    SOURCES +=  \
+        res/qml/*.qml \
+        res/qml/common/*.qml \
+        res/qml/pages/*.qml \
+        res/qml/ui_items/*.qml \
+        res/js/*.js
+}
+
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH = $$PWD/res/qml
@@ -67,6 +82,5 @@ DISTFILES += \
     res/fonts/COPYRIGHT.txt \
     res/fonts/LICENSE \
     res/fonts/LICENSE.txt
-
 
 
