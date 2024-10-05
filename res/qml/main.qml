@@ -100,9 +100,9 @@ QQC2.ApplicationWindow {
   FadeStackLayout {
     id: fadeLayout
 
-    TestPage {
-      id: testPage
-    }
+    // TestPage {
+    //   id: testPage
+    // }
 
     InitPage {
       id: initPage

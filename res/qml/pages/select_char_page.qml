@@ -102,7 +102,7 @@ QQC2.Page {
           if (enableSounds) {
             btnClik.play()
           }
-          root.showStroyPage(this.characterId)
+          root.showStoryPage(this.characterId)
         }
       }
 
