@@ -48,7 +48,7 @@ Item {
   Image {
     id: img
     anchors.centerIn: parent
-
+    mipmap: true
     smooth: true
     layer.enabled: true
     layer.effect: DropShadow {
