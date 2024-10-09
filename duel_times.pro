@@ -85,6 +85,8 @@ DISTFILES += \
     android/gradlew \
     android/gradlew.bat \
     android/res/values/libs.xml \
+    android/res/values/strings.xml \
+    android/res/values/themes.xml \
     package_name.txt \
     version.txt \
     res/fonts/COPYRIGHT.txt \

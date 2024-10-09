@@ -21,11 +21,11 @@ Item {
   ColumnLayout {
     id: mainLayout
     anchors.fill: parent
-    spacing: 2 * DevicePixelRatio
+    spacing: 2
     Item {
       // spacer item
       Layout.fillWidth: true
-      Layout.preferredHeight: 2 * DevicePixelRatio
+      Layout.preferredHeight: 2
     }
     ImageRotateButton {
       id: characterPicture
@@ -39,7 +39,7 @@ Item {
     Item {
       // spacer item
       Layout.fillWidth: true
-      Layout.preferredHeight: 8 * DevicePixelRatio
+      Layout.preferredHeight: 8
     }
 
     QQC2.Label {
@@ -49,7 +49,7 @@ Item {
       Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
       horizontalAlignment: Text.AlignHCenter
       verticalAlignment: Text.AlignVCenter
-      padding: 2 * DevicePixelRatio
+      padding: 2
 
       style: Text.Outline
       styleColor: "blue"
@@ -63,9 +63,9 @@ Item {
 
       layer.enabled: true
       layer.effect: DropShadow {
-        horizontalOffset: 2 * DevicePixelRatio
-        verticalOffset: 4 * DevicePixelRatio
-        radius: 4 * DevicePixelRatio
+        horizontalOffset: 2
+        verticalOffset: 4
+        radius: 4
         samples: 8
         color: "darkgrey"
       }
@@ -74,7 +74,7 @@ Item {
     Item {
       // spacer item
       Layout.fillWidth: true
-      Layout.preferredHeight: 2 * DevicePixelRatio
+      Layout.preferredHeight: 2
     }
   }
 }

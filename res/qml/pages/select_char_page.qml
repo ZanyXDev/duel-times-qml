@@ -19,7 +19,7 @@ QQC2.Page {
   property bool pageActive: false
   property real soundsVolume
   property bool enableSounds
-  property int playerImageSize: 256 * DevicePixelRatio
+  property int playerImageSize: 256
   // ----- Size information
   // ----- Then comes the other properties. There's no predefined order to these.
   onPageActiveChanged: {
@@ -36,31 +36,31 @@ QQC2.Page {
     anchors.fill: parent
     color: "black"
     border.color: "darkgrey"
-    border.width: 4 * DevicePixelRatio
+    border.width: 4
   }
 
   ColumnLayout {
     id: mainSelectCharacterLayout
 
     anchors.fill: parent
-    spacing: 8 * DevicePixelRatio
+    spacing: 8
     Item {
       // spacer item
       Layout.fillWidth: true
-      Layout.preferredHeight: 32 * DevicePixelRatio
+      Layout.preferredHeight: 32
     }
     QQC2.Label {
       id: selectCharLabel
       Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
       Layout.fillWidth: true
-      Layout.preferredHeight: 72 * DevicePixelRatio
+      Layout.preferredHeight: 72
 
       visible: false
       opacity: 0
       text: qsTr("Select your character")
       horizontalAlignment: Text.AlignHCenter
       verticalAlignment: Text.AlignVCenter
-      padding: 2 * DevicePixelRatio
+      padding: 2
 
       style: Text.Outline
       styleColor: "blue"
@@ -74,9 +74,9 @@ QQC2.Page {
 
       layer.enabled: true
       layer.effect: DropShadow {
-        horizontalOffset: 3 * DevicePixelRatio
-        verticalOffset: 4 * DevicePixelRatio
-        radius: 8 * DevicePixelRatio
+        horizontalOffset: 3
+        verticalOffset: 4
+        radius: 8
         samples: 12
         color: "darkgrey"
       }
@@ -84,14 +84,14 @@ QQC2.Page {
     Item {
       // spacer item
       Layout.fillWidth: true
-      Layout.preferredHeight: 1 * DevicePixelRatio
+      Layout.preferredHeight: 1
     }
     RowLayout {
       id: characterNameRow
       Layout.fillWidth: true
       Layout.preferredHeight: root.playerImageSize
       Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-      spacing: 24 * DevicePixelRatio
+      spacing: 24
 
       component PCard: PlayerCard {
         Layout.preferredHeight: root.playerImageSize
@@ -110,7 +110,7 @@ QQC2.Page {
       Item {
         // spacer item
         Layout.fillHeight: true
-        Layout.preferredWidth: 24 * DevicePixelRatio
+        Layout.preferredWidth: 24
       }
 
       PCard {
@@ -141,14 +141,14 @@ QQC2.Page {
       Item {
         // spacer item
         Layout.fillHeight: true
-        Layout.preferredWidth: 24 * DevicePixelRatio
+        Layout.preferredWidth: 24
       }
     }
     Rectangle {
       id: placeHolder
       Layout.alignment: Qt.AlignRight
       Layout.preferredHeight: root.playerImageSize
-      Layout.margins: 32 * DevicePixelRatio
+      Layout.margins: 32
       height: root.playerImageSize
       width: root.playerImageSize
       color: "red"

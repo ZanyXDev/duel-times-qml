@@ -4,7 +4,6 @@ import QtQuick.Controls 2.15 as QQC2
 import QtGraphicalEffects 1.0
 import common 1.0
 
-
 QQC2.Button {
   id: root
 
@@ -14,12 +13,12 @@ QQC2.Button {
 
   font {
     family: AppSingleton.baseFont.name
-    pointSize: AppSingleton.largeFontSize
+    pointSize: AppSingleton.middleFontSize
   }
 
   background: Rectangle {
     id: bgrRect
-    radius: 8 * DevicePixelRatio
+    radius: 8
     color: "lightgrey"
     width: parent.width
     height: parent.height
@@ -59,9 +58,9 @@ QQC2.Button {
 
   layer.enabled: true
   layer.effect: DropShadow {
-    horizontalOffset: 3 * DevicePixelRatio
-    verticalOffset: 4 * DevicePixelRatio
-    radius: 8 * DevicePixelRatio
+    horizontalOffset: 3
+    verticalOffset: 4
+    radius: 8
     samples: 12
     color: "black"
   }

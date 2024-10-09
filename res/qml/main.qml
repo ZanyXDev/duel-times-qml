@@ -11,7 +11,7 @@ import pages 1.0
 
 import "qrc:/res/js/logic.js" as Logic
 
-import io.github.zanyxdev.duel_times.hal 1.0
+import io.github.zanyxdev.dueltimes.hal 1.0
 
 QQC2.ApplicationWindow {
   id: appWnd
@@ -27,12 +27,17 @@ QQC2.ApplicationWindow {
   property bool enableSounds
   property bool enableMusics
 
+  property var screenWidth: Screen.width
+  property var screenHeight: Screen.height
+  property var screenAvailableWidth: Screen.desktopAvailableWidth
+  property var screenAvailableHeight: Screen.desktopAvailableHeight
+
   // ----- Signal declarations
   signal screenOrientationUpdated(int screenOrientation)
 
   // ----- Size information
-  width: 640 * DevicePixelRatio //(isMobile) ? 640 * DevicePixelRatio : 1280 * DevicePixelRatio
-  height: 360 * DevicePixelRatio //(isMobile) ? 360 * DevicePixelRatio : 700 * DevicePixelRatio
+  width: (isMobile) ? screenAvailableWidth : 640
+  height: (isMobile) ? screenAvailableHeight : 360
   maximumHeight: height
   maximumWidth: width
 
@@ -42,7 +47,7 @@ QQC2.ApplicationWindow {
   visible: true
   visibility: (isMobile) ? Window.FullScreen : Window.Windowed
   //ToDo need googled QMl.Window.Flags on mobile phone
-  flags: Qt.Window
+  //flags: Qt.Window
   //title: qsTr(" ")
 
   //Screen.orientationUpdateMask: Qt.LandscapeOrientation
@@ -59,15 +64,17 @@ QQC2.ApplicationWindow {
 
   Component.onCompleted: {
     let infoMsg = `Screen.height[${Screen.height}], Screen.width[${Screen.width}]
-    DevicePixelRatio :[${DevicePixelRatio}]
     Screen [height ${height},width ${width}]
     Build with [${HAL.getAppBuildInfo()}]
     Available physical screens [${Qt.application.screens.length}]
     mSettings.enableMusics ${mSettings.enableMusics}
+    Available Resolution width: ${Screen.desktopAvailableWidth} height ${Screen.desktopAvailableHeight}
     `
     AppSingleton.toLog(infoMsg)
 
-    appWnd.moveToCenter()
+    if (!isMobile) {
+      appWnd.moveToCenter()
+    }
     appWnd.restoreSettings()
     appWnd.enableMusics ? introMusic.play() : introMusic.stop()
   }
@@ -151,14 +158,14 @@ QQC2.ApplicationWindow {
 
   // ----- JavaScript functions
   function moveToCenter() {
-    appWnd.y = (Screen.desktopAvailableHeight / 2) - (height / 2)
-    appWnd.x = (Screen.desktopAvailableWidth / 2) - (width / 2)
+    appWnd.y = (screenAvailableHeight / 2) - (height / 2)
+    appWnd.x = (screenAvailableWidth / 2) - (width / 2)
   }
 
   function restoreSettings() {
-    appWnd.enableSounds = true //mSettings.enableSounds
-    appWnd.enableMusics = true //mSettings.enableMusics
-    appWnd.soundsVolume = 1.0 //mSettings.soundsVolume
-    appWnd.musicsVolume = 1.0 //mSettings.musicsVolume
+    appWnd.enableSounds = mSettings.enableSounds
+    appWnd.enableMusics = mSettings.enableMusics
+    appWnd.soundsVolume = mSettings.soundsVolume
+    appWnd.musicsVolume = mSettings.musicsVolume
   }
 }

@@ -32,13 +32,21 @@ QQC2.Page {
   }
 
   // ----- Visual children.
-  background: Image {
+  background: BorderImage {
     id: background
     anchors.fill: parent
+    border {
+      left: 48
+      top: 48
+      right: 48
+      bottom: 48
+    }
+    horizontalTileMode: BorderImage.Stretch
+    verticalTileMode: BorderImage.Stretch
     source: "qrc:/res/images/title.jpg"
-    fillMode: Image.PreserveAspectCrop
     opacity: 0.8
   }
+
   AppVersionTxt {
     id: appVerText
     text: "v. " + AppVersion
@@ -48,9 +56,9 @@ QQC2.Page {
     visible: false
     anchors {
       bottom: parent.bottom
-      bottomMargin: 20 * DevicePixelRatio
+      bottomMargin: 48
       right: parent.right
-      rightMargin: 20 * DevicePixelRatio
+      rightMargin: 48
     }
   }
 
@@ -61,7 +69,7 @@ QQC2.Page {
     opacity: 0
     anchors {
       bottom: parent.bottom
-      bottomMargin: 40 * DevicePixelRatio
+      bottomMargin: 48
       horizontalCenter: parent.horizontalCenter
     }
     onClicked: {
