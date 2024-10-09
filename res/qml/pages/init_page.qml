@@ -10,13 +10,14 @@ QQC2.Page {
 
   // ----- Property Declarations
   // Required properties should be at the top.
+  readonly property bool _small_width: AppSingleton.is_width_small(parent.width)
+
+  property bool pageActive: false
+  property real soundsVolume
+  property bool enableSounds
 
   // ----- Signal declarations
   signal showSelectCharacterPage
-  property bool pageActive: false
-
-  property real soundsVolume
-  property bool enableSounds
 
   // ----- Size information
   // ----- Then comes the other properties. There's no predefined order to these.
@@ -29,6 +30,8 @@ QQC2.Page {
 
   Component.onCompleted: {
     AppSingleton.toLog(`InitPage [${root.height}h,${root.width}w]`)
+    AppSingleton.toLog(
+          `AppSingleton._scaling_factor[${AppSingleton._scaling_factor}]`)
   }
 
   // ----- Visual children.
@@ -56,20 +59,25 @@ QQC2.Page {
     visible: false
     anchors {
       bottom: parent.bottom
-      bottomMargin: 48
+      bottomMargin: 24
       right: parent.right
-      rightMargin: 48
+      rightMargin: 24
     }
   }
 
   ShadersButton {
     id: tapToStartBtn
     text: qsTr("Tap to Start")
+    font {
+      family: AppSingleton.baseFont.name
+      pointSize: AppSingleton.averageFontSize
+    }
+
     visible: false
     opacity: 0
     anchors {
       bottom: parent.bottom
-      bottomMargin: 48
+      bottomMargin: 24
       horizontalCenter: parent.horizontalCenter
     }
     onClicked: {
