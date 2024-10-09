@@ -11,11 +11,6 @@ QQC2.Button {
   property color particleColor: "green"
   state: pressed ? "buttonDown" : "buttonUp"
 
-  font {
-    family: AppSingleton.baseFont.name
-    pointSize: AppSingleton.middleFontSize
-  }
-
   background: Rectangle {
     id: bgrRect
     radius: 8
