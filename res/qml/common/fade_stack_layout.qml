@@ -40,7 +40,6 @@ StackLayout {
         property: "pageActive"
         value: true
       }
-
     }
   }
   Component.onCompleted: {
@@ -51,9 +50,6 @@ StackLayout {
   }
 
   onCurrentIndexChanged: {
-    AppSingleton.toLog(
-          `StackLayout.onCurrentIndexChanged [${root.currentIndex}]`)
-
     previousItem = root.children[previousIndex]
     currentItem = root.children[currentIndex]
 
@@ -64,6 +60,13 @@ StackLayout {
                                                      "fadeOutTarget": previousItem,
                                                      "fadeInTarget": currentItem
                                                    })
+      let infoMsg = `
+      FadeStackLayout.onCurrentIndexChanged
+      root [height]${root.height}, width[${root.width}]
+      previousItem [height${previousItem.height}], width[${previousItem.width}]
+      currentItem [height ${currentItem.height},width ${currentItem.width}]
+      `
+      AppSingleton.toLog(infoMsg)
       crossFaderAnim.restart()
     }
 
