@@ -10,6 +10,16 @@ import "qrc:/res/js/utils.js" as Utils
 
 QQC2.Page {
   id: root
+  // Property thats used for sizing/margins/layout
+  QtObject {
+    id: __p
+    readonly property int padding_amount: 2
+    readonly property int padding_amount_2x: 2 * __p.padding_amount
+    readonly property int image_row_size: 128
+    readonly property int spacing: 8
+    readonly property int spacing_x3: 3 * __p.spacing
+    readonly property int title_row: 64
+  }
 
   // ----- Property Declarations
   // Required properties should be at the top.
@@ -17,7 +27,6 @@ QQC2.Page {
   property bool pageActive: false
   property real soundsVolume
   property bool enableSounds
-  property int playerImageSize: 128
 
   // ----- Signal declarations
   signal showStoryPage(int character_id)
@@ -25,14 +34,6 @@ QQC2.Page {
   // ----- Then comes the other properties. There's no predefined order to these.
   onPageActiveChanged: {
     if (root.pageActive === true) {
-
-      let infoMsg = `
-      select_page.onPageActiveChanged: ${root.height},${root.width}
-      selectCharLabel: ${selectCharLabel.height}, ${selectCharLabel.width}
-      charNameRWL: ${charNameRWL.height}, ${charNameRWL.width}
-      placeHolder: ${placeHolder.height}, ${placeHolder.width}
-      `
-      AppSingleton.toLog(infoMsg)
       showAnimation.start()
     }
   }
@@ -46,57 +47,202 @@ QQC2.Page {
     color: "black"
   }
 
+  GridLayout {
+    id: _grid
+    anchors.fill: parent
+    anchors.margins: 10
+    columnSpacing: 10
+    rowSpacing: 10
+    columns: 3
+    rows: 3
+    Rectangle {
+      id: _1
+      Layout.row: 0
+      Layout.column: 0
+      Layout.rowSpan: 2
+      Layout.fillHeight: true
+      Layout.fillWidth: true
+      Layout.preferredWidth: 2
+      color: "green"
+      Text {
+        text: "1"
+      }
+    }
+    Rectangle {
+      id: _2
+      Layout.row: 0
+      Layout.column: 1
+      Layout.rowSpan: 2
+      Layout.fillHeight: true
+      Layout.fillWidth: true
+      Layout.preferredWidth: 3
+      color: "lightgreen"
+      Text {
+        text: "2"
+      }
+    }
+    Rectangle {
+      id: _6
+      Layout.row: 2
+      Layout.column: 0
+      Layout.columnSpan: 2
+      Layout.fillHeight: true
+      Layout.fillWidth: true
+      color: "grey"
+      Text {
+        text: "6"
+      }
+    }
+    Rectangle {
+      id: _3
+      Layout.row: 0
+      Layout.column: 2
+      Layout.fillWidth: true
+      Layout.fillHeight: true
+      Layout.preferredWidth: 2
+      color: "lightgray"
+      Text {
+        text: "3"
+      }
+    }
+    Rectangle {
+      id: _4
+      Layout.row: 1
+      Layout.column: 2
+      Layout.fillWidth: true
+      Layout.fillHeight: true
+      Layout.preferredWidth: 2
+      color: "orange"
+      Text {
+        text: "4"
+      }
+    }
+    Rectangle {
+      id: _5
+      Layout.row: 2
+      Layout.column: 2
+      Layout.fillWidth: true
+      Layout.fillHeight: true
+      Layout.preferredWidth: 2
+      color: "skyblue"
+      Text {
+        text: "5"
+      }
+    }
+  }
+
   ColumnLayout {
     id: mainCNL
+    visible: false
     anchors.fill: parent
-    spacing: 8
-
+    spacing: __p.spacing
     Item {
       // spacer item
       Layout.fillWidth: true
-      Layout.fillHeight: true
+      Layout.preferredHeight: __p.spacing
+      Rectangle {
+        id: tst1
+        anchors.fill: parent
+        color: "red"
+      }
     }
-    Rectangle {
+    QQC2.Label {
       id: selectCharLabel
       Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
       Layout.fillWidth: true
-      Layout.preferredHeight: 72
+      Layout.preferredHeight: __p.title_row
+      visible: false
+      opacity: 0
+      padding: (_small_width) ? __p.padding_amount_2x : __p.padding_amount
+      style: Text.Outline
+      styleColor: "blue"
 
-      color: "red"
-      Text {
-        id: selectCharLabelTxt
-        text: `selectCharLabel: ${selectCharLabel.height}, ${selectCharLabel.width}`
+      color: "lightcyan"
+      text: (isDebugMode) ? `Label ${selectCharLabel.height},${selectCharLabel.width}` : qsTr(
+                              "Select your character")
+      horizontalAlignment: Text.AlignHCenter
+      verticalAlignment: Text.AlignVCenter
+
+      font {
+        family: AppSingleton.droidFont.name
+        pointSize: (_small_width) ? AppSingleton.middleFontSize : AppSingleton.largeFontSize
+      }
+
+      layer.enabled: true
+      layer.effect: DropShadow {
+        horizontalOffset: 3
+        verticalOffset: 4
+        radius: 8
+        samples: 12
+        color: "darkgrey"
       }
     }
-    Rectangle {
+
+    RowLayout {
       id: charNameRWL
       Layout.fillWidth: true
-      Layout.preferredHeight: root.playerImageSize
-      Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-      color: "green"
-      Text {
-        id: charNameRWLTxt
-        text: `charNameRWL: ${charNameRWL.height}, ${charNameRWL.width}`
+      Layout.preferredHeight: __p.image_row_size
+      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+      spacing: __p.spacing_x3
+
+      component PCard: PlayerCard {
+        Layout.preferredHeight: __p.image_row_size
+        Layout.preferredWidth: __p.image_row_size
+        sourceSize.height: __p.image_row_size
+        sourceSize.width: __p.image_row_size
+
+        onClicked: {
+          if (enableSounds) {
+            btnClik.play()
+          }
+          setupHideAnimation(characterId)
+        }
+      }
+      Item {
+        // spacer item
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+      }
+      PCard {
+        id: pCardRem
+        characterName: qsTr("Rem")
+        characterPicture: "qrc:/res/images/players/rem-normal.jpeg"
+        characterId: Utils.Char_id.Rem
+      }
+      PCard {
+        id: pCardJohn
+        characterName: qsTr("John")
+        characterPicture: "qrc:/res/images/players/john-normal.jpeg"
+        characterId: Utils.Char_id.John
+      }
+      PCard {
+        id: pCardNino
+        characterName: qsTr("Nino")
+        characterPicture: "qrc:/res/images/players/nino-normal.jpeg"
+        characterId: Utils.Char_id.Nino
+      }
+      PCard {
+        id: pCardFoxy
+        characterName: qsTr("Foxy")
+        characterPicture: "qrc:/res/images/players/foxy-normal.jpeg"
+        characterId: Utils.Char_id.Foxy
+      }
+      Item {
+        // spacer item
+        Layout.fillHeight: true
+        Layout.fillWidth: true
       }
     }
-    Rectangle {
-      id: placeHolder
-      Layout.alignment: Qt.AlignRight
-      Layout.preferredHeight: root.playerImageSize
-      Layout.fillWidth: true
-      // /Layout.margins: 32
-      height: root.playerImageSize
-      width: root.playerImageSize
-      color: "yellow"
-      Text {
-        id: debugTxt
-        text: `placeHolder: ${placeHolder.height}, ${placeHolder.width}`
-      }
-    }
+
     Item {
       // spacer item
       Layout.fillWidth: true
-      Layout.fillHeight: true
+      Layout.preferredHeight: __p.spacing
+      Rectangle {
+        id: tst
+        anchors.fill: parent
+        color: "red"
+      }
     }
   }
 
