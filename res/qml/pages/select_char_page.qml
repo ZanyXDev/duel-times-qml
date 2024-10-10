@@ -13,6 +13,7 @@ QQC2.Page {
   // Property thats used for sizing/margins/layout
   QtObject {
     id: __p
+    readonly property int safe_padding: 24
     readonly property int padding_amount: 2
     readonly property int padding_amount_2x: 2 * __p.padding_amount
     readonly property int image_row_size: 128
@@ -50,83 +51,83 @@ QQC2.Page {
   GridLayout {
     id: _grid
     anchors.fill: parent
-    anchors.margins: 10
-    columnSpacing: 10
-    rowSpacing: 10
-    columns: 3
+    anchors.margins: __p.safe_padding
+    columnSpacing: __p.spacing * 2
+    rowSpacing: __p.spacing
+    columns: 4
     rows: 3
     Rectangle {
-      id: _1
+      id: topRow
       Layout.row: 0
       Layout.column: 0
-      Layout.rowSpan: 2
+      Layout.columnSpan: 4
       Layout.fillHeight: true
       Layout.fillWidth: true
-      Layout.preferredWidth: 2
+      Layout.preferredHeight: 1
       color: "green"
       Text {
-        text: "1"
+        text: "TopRow"
       }
     }
     Rectangle {
-      id: _2
-      Layout.row: 0
-      Layout.column: 1
-      Layout.rowSpan: 2
+      id: middleRowOne
+      Layout.row: 1
+      Layout.column: 0
       Layout.fillHeight: true
       Layout.fillWidth: true
-      Layout.preferredWidth: 3
+      Layout.preferredHeight: 2
       color: "lightgreen"
       Text {
-        text: "2"
+        text: "middleRowOne"
       }
     }
     Rectangle {
-      id: _6
-      Layout.row: 2
-      Layout.column: 0
-      Layout.columnSpan: 2
+      id: middleRowTwo
+      Layout.row: 1
+      Layout.column: 1
       Layout.fillHeight: true
       Layout.fillWidth: true
+      Layout.preferredHeight: 2
       color: "grey"
       Text {
-        text: "6"
+        text: "middleRowTwo"
       }
     }
     Rectangle {
-      id: _3
-      Layout.row: 0
-      Layout.column: 2
-      Layout.fillWidth: true
-      Layout.fillHeight: true
-      Layout.preferredWidth: 2
-      color: "lightgray"
-      Text {
-        text: "3"
-      }
-    }
-    Rectangle {
-      id: _4
+      id: middleRowThree
       Layout.row: 1
       Layout.column: 2
-      Layout.fillWidth: true
       Layout.fillHeight: true
-      Layout.preferredWidth: 2
-      color: "orange"
+      Layout.fillWidth: true
+      Layout.preferredHeight: 2
+      color: "lightgray"
       Text {
-        text: "4"
+        text: "middleRowThree"
       }
     }
     Rectangle {
-      id: _5
-      Layout.row: 2
-      Layout.column: 2
-      Layout.fillWidth: true
+      id: middleRowFour
+      Layout.row: 1
+      Layout.column: 3
       Layout.fillHeight: true
-      Layout.preferredWidth: 2
+      Layout.fillWidth: true
+      Layout.preferredHeight: 2
       color: "skyblue"
       Text {
-        text: "5"
+        text: "middleRowFour"
+      }
+    }
+    Rectangle {
+      id: bottomRow
+      Layout.row: 2
+      Layout.column: 0
+      Layout.columnSpan: 4
+      Layout.fillHeight: true
+      Layout.fillWidth: true
+      Layout.preferredHeight: 1
+      color: "yellow"
+      Text {
+        text: "bottomRow"
       }
     }
   }
