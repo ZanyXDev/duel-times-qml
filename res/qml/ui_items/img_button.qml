@@ -11,21 +11,17 @@ Item {
   property alias verticalAlignment: img.verticalAlignment
   property alias horizontalAlignment: img.horizontalAlignment
 
-
   /**
-      * @var Qt::MouseButtons acceptedButtons
-      * This property holds the mouse buttons that the mouse area reacts to.
-      * See <a href="https://doc.qt.io/qt-5/qml-qtquick-mousearea.html#acceptedButtons-prop">Qt documentation</a>.
-      */
+    * @var Qt::MouseButtons acceptedButtons
+    * This property holds the mouse buttons that the mouse area reacts to.
+    * See <a href="https://doc.qt.io/qt-5/qml-qtquick-mousearea.html#acceptedButtons-prop">Qt documentation</a>.
+    */
   property alias acceptedButtons: mArea.acceptedButtons
 
-
   /**
-      * @var mouseArea Mouse area element covering the button.
-      */
+    * @var mouseArea Mouse area element covering the button.
+    */
   property alias mouseArea: mArea
-
-  property bool clockwise: false
   property bool isActive: root.enabled && mArea.containsMouse
   property int buttonWidth
   property int buttonHeight: root.buttonWidth
@@ -34,10 +30,9 @@ Item {
   signal clicked
   signal hoverChanged
 
-
   /** This property Enables accessibility of QML items.
-      * See <a href="https://doc.qt.io/qt-5/qml-qtquick-accessible.html">Qt documentation</a>.
-      */
+    * See <a href="https://doc.qt.io/qt-5/qml-qtquick-accessible.html">Qt documentation</a>.
+    */
   Accessible.role: Accessible.Button
   Accessible.name: qsTr("Image Button")
   Accessible.onPressAction: root.clicked(null)
@@ -84,10 +79,6 @@ Item {
           target: img
           scale: 0.7
         }
-        PropertyChanges {
-          target: img
-          rotation: 180
-        }
       },
       State {
         name: "buttonUp"
@@ -102,10 +93,6 @@ Item {
         properties: scale
         easing.type: Easing.InOutQuad
         duration: AppSingleton.timer200
-      }
-      RotationAnimation {
-        duration: AppSingleton.timer200
-        direction: (root.clockwise) ? RotationAnimation.Counterclockwise : RotationAnimation.Clockwise
       }
     }
   }
