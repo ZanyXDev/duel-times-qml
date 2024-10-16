@@ -22,8 +22,6 @@ QQC2.ApplicationWindow {
   readonly property bool appInForeground: Qt.application.state === Qt.ApplicationActive
 
   property bool appInitialized: false
-  property real soundsVolume
-  property real musicsVolume
   property bool enableSounds
   property bool enableMusics
 
@@ -46,11 +44,6 @@ QQC2.ApplicationWindow {
   // ----- Then comes the other properties. There's no predefined order to these.
   visible: true
   visibility: (isMobile) ? Window.FullScreen : Window.Windowed
-  //ToDo need googled QMl.Window.Flags on mobile phone
-  //flags: Qt.Window
-  //title: qsTr(" ")
-
-  //Screen.orientationUpdateMask: Qt.LandscapeOrientation
 
   // ----- Then attached properties and attached signal handlers.
 
@@ -79,14 +72,6 @@ QQC2.ApplicationWindow {
     appWnd.enableMusics ? introMusic.play() : introMusic.stop()
   }
 
-  Component.onDestruction: {
-
-    // mSettings.enableSounds = appWnd.enableSounds
-    // mSettings.enableMusics = appWnd.enableMusics
-    // mSettings.soundsVolume = appWnd.soundsVolume
-    // mSettings.musicsVolume = appWnd.musicsVolume
-  }
-
   onAppInForegroundChanged: {
     if (appInForeground) {
       if (!appInitialized) {
@@ -107,9 +92,6 @@ QQC2.ApplicationWindow {
   FadeStackLayout {
     id: fadeLayout
 
-    // TestPage {
-    //   id: testPage
-    // }
     InitPage {
       id: initPage
       soundsVolume: appWnd.soundsVolume
@@ -126,13 +108,26 @@ QQC2.ApplicationWindow {
       enableSounds: appWnd.enableSounds
       ///ToDo disable into music befor start game
       onShowStoryPage: {
+        AppSingleton.toLog(
+              `fadeLayout.currentIndex ${fadeLayout.currentIndex} recive btnID: [${btnID}]`)
         fadeLayout.currentIndex++
+
+        // switch (btnID) {
+        // case Utils.Char_id.Rem:
+        // {
+        //   break
+        // }
+        // default:
+        // {
+        //   break
+        // }
+        // }
       }
     }
-
+    TestPage {
+      id: testPage
+    }
     Component.onCompleted: {
-      AppSingleton.toLog(
-            `fadeLayout.currentItem: [${fadeLayout.currentItem} , currentIndex: ${fadeLayout.currentIndex}]`)
       initPage.pageActive = true
     }
   }
@@ -141,8 +136,6 @@ QQC2.ApplicationWindow {
   Settings {
     id: mSettings
     category: "Settings"
-    property alias soundsVolume: appWnd.soundsVolume
-    property alias musicsVolume: appWnd.musicsVolume
     property alias enableSounds: appWnd.enableSounds
     property alias enableMusics: appWnd.enableMusics
   }
@@ -150,7 +143,6 @@ QQC2.ApplicationWindow {
   Audio {
     id: introMusic
     autoPlay: appWnd.enableMusics
-    volume: appWnd.musicsVolume
     source: "qrc:/res/sounds/in-game.mp3"
     loops: Audio.Infinite
     audioRole: Audio.GameRole
@@ -165,7 +157,5 @@ QQC2.ApplicationWindow {
   function restoreSettings() {
     appWnd.enableSounds = mSettings.enableSounds
     appWnd.enableMusics = mSettings.enableMusics
-    appWnd.soundsVolume = mSettings.soundsVolume
-    appWnd.musicsVolume = mSettings.musicsVolume
   }
 }
