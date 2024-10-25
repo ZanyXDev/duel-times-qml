@@ -48,13 +48,6 @@ QQC2.ApplicationWindow {
   // ----- Then attached properties and attached signal handlers.
 
   // ----- Signal handlers
-  onEnableSoundsChanged: {
-    soundsVolume = (enableSounds) ? 1.0 : 0.0
-  }
-  onEnableMusicsChanged: {
-    musicsVolume = (enableMusics) ? 1.0 : 0.0
-  }
-
   Component.onCompleted: {
     let infoMsg = `Screen.height[${Screen.height}], Screen.width[${Screen.width}]
     Screen [height ${height},width ${width}]
@@ -94,7 +87,7 @@ QQC2.ApplicationWindow {
 
     InitPage {
       id: initPage
-      soundsVolume: appWnd.soundsVolume
+      enableMusics: appWnd.enableMusics
       enableSounds: appWnd.enableSounds
 
       onShowSelectCharacterPage: {
@@ -104,24 +97,14 @@ QQC2.ApplicationWindow {
 
     SelectCharacter {
       id: selectCharPage
-      soundsVolume: appWnd.soundsVolume
+      enableMusics: appWnd.enableMusics
       enableSounds: appWnd.enableSounds
+
       ///ToDo disable into music befor start game
       onShowStoryPage: {
         AppSingleton.toLog(
-              `fadeLayout.currentIndex ${fadeLayout.currentIndex} recive btnID: [${btnID}]`)
+              `fadeLayout.currentIndex ${fadeLayout.currentIndex} recive player_id: [${player_id}]`)
         fadeLayout.currentIndex++
-
-        // switch (btnID) {
-        // case Utils.Char_id.Rem:
-        // {
-        //   break
-        // }
-        // default:
-        // {
-        //   break
-        // }
-        // }
       }
     }
     TestPage {
