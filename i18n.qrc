@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>res/i18n/duel-times-qml_en.qm</file>
-        <file>res/i18n/duel-times-qml_ru.qm</file>
+        <file>res/i18n/duel_times_en.qm</file>
+        <file>res/i18n/duel_times_ru.qm</file>
     </qresource>
 </RCC>
