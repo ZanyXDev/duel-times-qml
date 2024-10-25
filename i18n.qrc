@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>res/i18n/duel_times_en.qm</file>
         <file>res/i18n/duel_times_ru.qm</file>
+        <file>res/i18n/duel_times_ru.ts</file>
+        <file>res/i18n/duel_times_en.ts</file>
     </qresource>
 </RCC>
