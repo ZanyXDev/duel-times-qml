@@ -8,12 +8,14 @@ import ui_items 1.0
 QQC2.Page {
   id: root
 
+  ///TODO add private QtObject
+
   // ----- Property Declarations
   // Required properties should be at the top.
   readonly property bool _small_width: AppSingleton.is_width_small(parent.width)
 
   property bool pageActive: false
-  property real soundsVolume
+  property bool enableMusics
   property bool enableSounds
 
   // ----- Signal declarations
@@ -52,8 +54,8 @@ QQC2.Page {
 
   AppVersionTxt {
     id: appVerText
-    text: "v. " + AppVersion
-    color: "white"
+    text: "v." + AppVersion
+    color: "black"
     z: 1
     opacity: 0
     visible: false
@@ -91,8 +93,7 @@ QQC2.Page {
   // Sounds
   SoundEffect {
     id: btnClik
-    source: "qrc:/res/sounds/sfx/button-click.wav"
-    volume: soundsVolume
+    source: "qrc:/res/sounds/sfx/button-click.wav"   
   }
 
   SequentialAnimation {

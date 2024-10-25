@@ -33,7 +33,7 @@ QQC2.Page {
     anchors.fill: parent
     color: "black"
     border.color: "darkgrey"
-    border.width: 4 * DevicePixelRatio
+    border.width: 4
   }
 
   Text {
@@ -48,8 +48,8 @@ QQC2.Page {
     id: rect
     anchors.left: parent.left
     anchors.top: parent.top
-    anchors.margins: 100
-    height: 200
+    anchors.margins: 10
+    height: 20
     color: "red"
 
     state: "default"
@@ -99,9 +99,9 @@ QQC2.Page {
 
     anchors {
       left: parent.left
-      leftMargin: 10 * DevicePixelRatio
+      leftMargin: 10
       bottom: parent.bottom
-      bottomMargin: 40 * DevicePixelRatio
+      bottomMargin: 40
     }
 
     onClicked: {
@@ -115,9 +115,9 @@ QQC2.Page {
 
     anchors {
       left: btn1.right
-      leftMargin: 10 * DevicePixelRatio
+      leftMargin: 10
       bottom: parent.bottom
-      bottomMargin: 40 * DevicePixelRatio
+      bottomMargin: 40
     }
 
     onClicked: {
@@ -131,9 +131,9 @@ QQC2.Page {
 
     anchors {
       left: btn2.right
-      leftMargin: 10 * DevicePixelRatio
+      leftMargin: 10
       bottom: parent.bottom
-      bottomMargin: 40 * DevicePixelRatio
+      bottomMargin: 40
     }
 
     onClicked: {
@@ -148,9 +148,9 @@ QQC2.Page {
 
     anchors {
       left: btn3.right
-      leftMargin: 10 * DevicePixelRatio
+      leftMargin: 10
       bottom: parent.bottom
-      bottomMargin: 40 * DevicePixelRatio
+      bottomMargin: 40
     }
 
     onClicked: {
@@ -165,9 +165,9 @@ QQC2.Page {
 
     anchors {
       left: btn4.right
-      leftMargin: 10 * DevicePixelRatio
+      leftMargin: 10
       bottom: parent.bottom
-      bottomMargin: 40 * DevicePixelRatio
+      bottomMargin: 40
     }
 
     onClicked: {
@@ -175,6 +175,7 @@ QQC2.Page {
       showAnimation.start()
     }
   }
+
   // ----- Qt provided non-visual children
   SequentialAnimation {
     id: hideAnimation

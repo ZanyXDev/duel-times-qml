@@ -16,21 +16,24 @@ QQC2.Page {
     readonly property int safe_padding: 24
     readonly property int padding_amount: 2
     readonly property int padding_amount_2x: 2 * __p.padding_amount
-    readonly property int image_row_size: 128
+    readonly property int image_size: 128
     readonly property int spacing: 8
     readonly property int spacing_x3: 3 * __p.spacing
     readonly property int title_row: 64
+    property variant visualItems: [selectCharLabel, pCardRem, labelRem, pCardJohn, labelJohn, pCardNino, labelNino, pCardFoxy, labelFoxy]
   }
 
   // ----- Property Declarations
   // Required properties should be at the top.
   readonly property bool _small_width: AppSingleton.is_width_small(parent.width)
   property bool pageActive: false
-  property real soundsVolume
+  property bool enableMusics
   property bool enableSounds
 
+  property int player_id: -1
   // ----- Signal declarations
-  signal showStoryPage(int character_id)
+  signal showStoryPage(int player_id)
+
   // ----- Size information
   // ----- Then comes the other properties. There's no predefined order to these.
   onPageActiveChanged: {
@@ -52,233 +55,189 @@ QQC2.Page {
     id: _grid
     anchors.fill: parent
     anchors.margins: __p.safe_padding
-    columnSpacing: __p.spacing * 2
+    columnSpacing: __p.spacing
     rowSpacing: __p.spacing
     columns: 4
-    rows: 3
-    Rectangle {
-      id: topRow
-      Layout.row: 0
-      Layout.column: 0
-      Layout.columnSpan: 4
-      Layout.fillHeight: true
-      Layout.fillWidth: true
-      Layout.preferredHeight: 1
-      color: "green"
-      Text {
-        text: "TopRow"
-      }
-    }
-    Rectangle {
-      id: middleRowOne
-      Layout.row: 1
-      Layout.column: 0
-      Layout.fillHeight: true
-      Layout.fillWidth: true
-      Layout.preferredHeight: 2
-      color: "lightgreen"
-      Text {
-        text: "middleRowOne"
-      }
-    }
-    Rectangle {
-      id: middleRowTwo
-      Layout.row: 1
-      Layout.column: 1
-      Layout.fillHeight: true
-      Layout.fillWidth: true
-      Layout.preferredHeight: 2
-      color: "grey"
-      Text {
-        text: "middleRowTwo"
-      }
-    }
-    Rectangle {
-      id: middleRowThree
-      Layout.row: 1
-      Layout.column: 2
-      Layout.fillHeight: true
-      Layout.fillWidth: true
-      Layout.preferredHeight: 2
-      color: "lightgray"
-      Text {
-        text: "middleRowThree"
-      }
-    }
-    Rectangle {
-      id: middleRowFour
-      Layout.row: 1
-      Layout.column: 3
-      Layout.fillHeight: true
-      Layout.fillWidth: true
-      Layout.preferredHeight: 2
-      color: "skyblue"
-      Text {
-        text: "middleRowFour"
-      }
-    }
-    Rectangle {
-      id: bottomRow
-      Layout.row: 2
-      Layout.column: 0
-      Layout.columnSpan: 4
-      Layout.fillHeight: true
-      Layout.fillWidth: true
-      Layout.preferredHeight: 1
-      color: "yellow"
-      Text {
-        text: "bottomRow"
-      }
-    }
-  }
+    rows: 4
 
-  ColumnLayout {
-    id: mainCNL
-    visible: false
-    anchors.fill: parent
-    spacing: __p.spacing
-    Item {
-      // spacer item
+    component IButton: ImageButton {
+      property int player_id: -1
+
+      Layout.fillHeight: true
       Layout.fillWidth: true
-      Layout.preferredHeight: __p.spacing
-      Rectangle {
-        id: tst1
-        anchors.fill: parent
-        color: "red"
+      Layout.preferredHeight: 3
+      sourceSize.height: __p.image_size
+      sourceSize.width: __p.image_size
+
+      onClicked: {
+        if (enableSounds) {
+          btnClik.play()
+        }
+        root.player_id = player_id
+        setupHideAnimation()
       }
     }
-    QQC2.Label {
-      id: selectCharLabel
-      Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+    component ILabel: QQC2.Label {
+      Layout.fillHeight: true
       Layout.fillWidth: true
-      Layout.preferredHeight: __p.title_row
+      Layout.preferredHeight: 1
+
+      horizontalAlignment: Text.AlignHCenter
+      verticalAlignment: Text.AlignTop
       visible: false
       opacity: 0
       padding: (_small_width) ? __p.padding_amount_2x : __p.padding_amount
+
+      text: qsTr("Don't show")
       style: Text.Outline
       styleColor: "blue"
-
       color: "lightcyan"
-      text: (isDebugMode) ? `Label ${selectCharLabel.height},${selectCharLabel.width}` : qsTr(
-                              "Select your character")
-      horizontalAlignment: Text.AlignHCenter
-      verticalAlignment: Text.AlignVCenter
 
-      font {
-        family: AppSingleton.droidFont.name
-        pointSize: (_small_width) ? AppSingleton.middleFontSize : AppSingleton.largeFontSize
-      }
+      font.family: AppSingleton.droidFont.name
 
       layer.enabled: true
       layer.effect: DropShadow {
-        horizontalOffset: 3
+        horizontalOffset: 2
         verticalOffset: 4
-        radius: 8
-        samples: 12
+        radius: 4
+        samples: 8
         color: "darkgrey"
       }
     }
 
-    RowLayout {
-      id: charNameRWL
-      Layout.fillWidth: true
-      Layout.preferredHeight: __p.image_row_size
-      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-      spacing: __p.spacing_x3
+    ILabel {
+      id: selectCharLabel
 
-      component PCard: PlayerCard {
-        Layout.preferredHeight: __p.image_row_size
-        Layout.preferredWidth: __p.image_row_size
-        sourceSize.height: __p.image_row_size
-        sourceSize.width: __p.image_row_size
+      Layout.row: 0
+      Layout.column: 0
+      Layout.columnSpan: 4
+      Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-        onClicked: {
-          if (enableSounds) {
-            btnClik.play()
-          }
-          setupHideAnimation(characterId)
-        }
-      }
-      Item {
-        // spacer item
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-      }
-      PCard {
-        id: pCardRem
-        characterName: qsTr("Rem")
-        characterPicture: "qrc:/res/images/players/rem-normal.jpeg"
-        characterId: Utils.Char_id.Rem
-      }
-      PCard {
-        id: pCardJohn
-        characterName: qsTr("John")
-        characterPicture: "qrc:/res/images/players/john-normal.jpeg"
-        characterId: Utils.Char_id.John
-      }
-      PCard {
-        id: pCardNino
-        characterName: qsTr("Nino")
-        characterPicture: "qrc:/res/images/players/nino-normal.jpeg"
-        characterId: Utils.Char_id.Nino
-      }
-      PCard {
-        id: pCardFoxy
-        characterName: qsTr("Foxy")
-        characterPicture: "qrc:/res/images/players/foxy-normal.jpeg"
-        characterId: Utils.Char_id.Foxy
-      }
-      Item {
-        // spacer item
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-      }
+      text: qsTr("Select your character")
+      font.pointSize: (_small_width) ? AppSingleton.middleFontSize : AppSingleton.largeFontSize
     }
 
-    Item {
-      // spacer item
+    IButton {
+      id: pCardRem
+      Layout.row: 1
+      Layout.column: 0
+      player_id: Utils.Char_id.Rem
+      source: "qrc:/res/images/players/rem-normal.jpeg"
+    }
+    IButton {
+      id: pCardJohn
+
+      Layout.row: 1
+      Layout.column: 1
+      player_id: Utils.Char_id.John
+      source: "qrc:/res/images/players/john-normal.jpeg"
+    }
+    IButton {
+      id: pCardNino
+      Layout.row: 1
+      Layout.column: 2
+      player_id: Utils.Char_id.Nino
+      source: "qrc:/res/images/players/nino-normal.jpeg"
+    }
+    IButton {
+      id: pCardFoxy
+      Layout.row: 1
+      Layout.column: 3
+      player_id: Utils.Char_id.Foxy
+      source: "qrc:/res/images/players/foxy-normal.jpeg"
+    }
+
+    ILabel {
+      id: labelRem
+
+      Layout.row: 2
+      Layout.column: 0
+
+      text: qsTr("Rem")
+      font.pointSize: AppSingleton.averageFontSize
+    }
+    ILabel {
+      id: labelJohn
+
+      Layout.row: 2
+      Layout.column: 1
+
+      text: qsTr("John")
+      font.pointSize: AppSingleton.averageFontSize
+    }
+    ILabel {
+      id: labelNino
+
+      Layout.row: 2
+      Layout.column: 2
+
+      text: qsTr("Nino")
+      font.pointSize: AppSingleton.averageFontSize
+    }
+    ILabel {
+      id: labelFoxy
+
+      Layout.row: 2
+      Layout.column: 3
+
+      text: qsTr("Foxy")
+      font.pointSize: AppSingleton.averageFontSize
+    }
+
+    Rectangle {
+      id: textRow
+      Layout.row: 3
+      Layout.column: 0
+      Layout.columnSpan: 4
+      Layout.fillHeight: true
       Layout.fillWidth: true
-      Layout.preferredHeight: __p.spacing
-      Rectangle {
-        id: tst
-        anchors.fill: parent
-        color: "red"
-      }
+      visible: false
+      Layout.preferredHeight: 1
+      color: "green"
     }
   }
 
   // ----- Qt provided non-visual children
-  function setupHideAnimation(char_id) {
-    switch (char_id) {
-    case Utils.Char_id.Rem:
-    {
-      hideAnimation.hideList = [pCardJohn, pCardNino, pCardFoxy, pCardRem]
-      break
-    }
-    default:
-    {
-      break
-    }
-    }
+  function setupHideAnimation() {
+
+    // switch (player_id) {
+    // case Utils.Char_id.Rem:
+    //   hideAnimation.firstList
+    //       = [selectCharLabel, pCardJohn, labelJohn, pCardNino, labelNino, pCardFoxy, labelFoxy]
+    //   hideAnimation.secondList = [pCardRem, labelRem]
+    //   break
+    // case Utils.Char_id.John:
+    //   break
+    // case Utils.Char_id.Nino:
+    //   break
+    // case Utils.Char_id.Foxy:
+    //   break
+    // default:
+    //   break
+    // }
     hideAnimation.start()
+  }
+
+  function nextPage() {
+    root.showStoryPage(root.player_id)
   }
 
   // Sounds
   SoundEffect {
     id: btnClik
     source: "qrc:/res/sounds/sfx/menu_click.wav"
-    volume: soundsVolume
   }
 
   SequentialAnimation {
     id: showAnimation
     PropertyAction {
-      targets: [selectCharLabel, pCardRem, pCardJohn, pCardNino, pCardFoxy]
+      targets: __p.visualItems
       property: "visible"
       value: true
     }
     NumberAnimation {
-      targets: [selectCharLabel, pCardRem, pCardJohn, pCardNino, pCardFoxy]
+      targets: __p.visualItems
       properties: "opacity"
       from: 0
       to: 0.8
@@ -286,24 +245,30 @@ QQC2.Page {
       easing.type: Easing.Linear
     }
   }
+
   SequentialAnimation {
     id: hideAnimation
-    property list<QtObject> hideList
 
     NumberAnimation {
-      targets: hideAnimation.hideList
+      targets: __p.visualItems
       properties: "opacity"
       from: 1.0
       to: 0
-      duration: AppSingleton.timer2000
+      duration: AppSingleton.timer1500
 
       easing.type: Easing.Linear
     }
-
     PropertyAction {
-      targets: hideAnimation.hideList
+      targets: __p.visualItems
       property: "visible"
       value: false
+    }
+
+    PauseAnimation {
+      duration: AppSingleton.timer200
+    }
+    ScriptAction {
+      script: nextPage()
     }
   }
 }
