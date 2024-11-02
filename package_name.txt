@@ -1,1 +1,1 @@
-io.github.zanyxdev.duel-times
+io.github.zanyxdev.duel_times

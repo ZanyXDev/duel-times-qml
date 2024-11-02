@@ -54,6 +54,7 @@ double Hal::getDevicePixelRatio() const{
     }
 
     density = displayMetrics.getField<int>("densityDpi");
+    qDebug() << "density:" << density;
 #else
     density = m_physicalDotsPerInch * m_devicePixelRatio;
 #endif

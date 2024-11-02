@@ -8,15 +8,18 @@ import ui_items 1.0
 QQC2.Page {
   id: root
 
+  ///TODO add private QtObject
+
   // ----- Property Declarations
   // Required properties should be at the top.
+  readonly property bool _small_width: AppSingleton.is_width_small(parent.width)
+
+  property bool pageActive: false
+  property bool enableMusics
+  property bool enableSounds
 
   // ----- Signal declarations
   signal showSelectCharacterPage
-  property bool pageActive: false
-
-  property real soundsVolume
-  property bool enableSounds
 
   // ----- Size information
   // ----- Then comes the other properties. There's no predefined order to these.
@@ -29,39 +32,54 @@ QQC2.Page {
 
   Component.onCompleted: {
     AppSingleton.toLog(`InitPage [${root.height}h,${root.width}w]`)
+    AppSingleton.toLog(
+          `AppSingleton._scaling_factor[${AppSingleton._scaling_factor}]`)
   }
 
   // ----- Visual children.
-  background: Image {
+  background: BorderImage {
     id: background
     anchors.fill: parent
+    border {
+      left: 48
+      top: 48
+      right: 48
+      bottom: 48
+    }
+    horizontalTileMode: BorderImage.Stretch
+    verticalTileMode: BorderImage.Stretch
     source: "qrc:/res/images/title.jpg"
-    fillMode: Image.PreserveAspectCrop
     opacity: 0.8
   }
+
   AppVersionTxt {
     id: appVerText
-    text: "v. " + AppVersion
-    color: "white"
+    text: "v." + AppVersion
+    color: "black"
     z: 1
     opacity: 0
     visible: false
     anchors {
       bottom: parent.bottom
-      bottomMargin: 20 * DevicePixelRatio
+      bottomMargin: 24
       right: parent.right
-      rightMargin: 20 * DevicePixelRatio
+      rightMargin: 24
     }
   }
 
   ShadersButton {
     id: tapToStartBtn
     text: qsTr("Tap to Start")
+    font {
+      family: AppSingleton.baseFont.name
+      pointSize: AppSingleton.averageFontSize
+    }
+
     visible: false
     opacity: 0
     anchors {
       bottom: parent.bottom
-      bottomMargin: 40 * DevicePixelRatio
+      bottomMargin: 24
       horizontalCenter: parent.horizontalCenter
     }
     onClicked: {
@@ -75,8 +93,7 @@ QQC2.Page {
   // Sounds
   SoundEffect {
     id: btnClik
-    source: "qrc:/res/sounds/sfx/button-click.wav"
-    volume: soundsVolume
+    source: "qrc:/res/sounds/sfx/button-click.wav"   
   }
 
   SequentialAnimation {

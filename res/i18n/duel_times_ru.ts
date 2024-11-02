@@ -1,56 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.1" language="ru_RU">
 <context>
     <name>Hal</name>
     <message>
         <location filename="../../src/hal.cpp" line="21"/>
         <source>This program uses Qt version %1.</source>
-        <translation>This program uses Qt version %1.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>img_button</name>
     <message>
-        <location filename="../qml/ui_items/img_button.qml" line="42"/>
+        <location filename="../qml/ui_items/img_button.qml" line="37"/>
         <source>Image Button</source>
-        <translation>Image Button</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>init_page</name>
     <message>
-        <location filename="../qml/pages/init_page.qml" line="59"/>
+        <location filename="../qml/pages/init_page.qml" line="72"/>
         <source>Tap to Start</source>
-        <translation>Tap to Start</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>select_char_page</name>
     <message>
-        <location filename="../qml/pages/select_char_page.qml" line="60"/>
-        <source>Select your character</source>
-        <translation>Select your character</translation>
+        <location filename="../qml/pages/select_char_page.qml" line="92"/>
+        <source>Don&apos;t show</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/select_char_page.qml" line="117"/>
+        <source>Select your character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/select_char_page.qml" line="157"/>
         <source>Rem</source>
-        <translation>Rem</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/select_char_page.qml" line="125"/>
+        <location filename="../qml/pages/select_char_page.qml" line="166"/>
         <source>John</source>
-        <translation>John</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/select_char_page.qml" line="132"/>
+        <location filename="../qml/pages/select_char_page.qml" line="175"/>
         <source>Nino</source>
-        <translation>Nino</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/select_char_page.qml" line="139"/>
+        <location filename="../qml/pages/select_char_page.qml" line="184"/>
         <source>Foxy</source>
-        <translation>Foxy</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
