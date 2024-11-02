@@ -167,7 +167,6 @@ QQC2.Page {
     TextEdit {
       id: pseudoTerminal
       property bool blink: false
-      property int last_item: text.length - 1
 
       QtObject {
         id: __p
@@ -194,7 +193,6 @@ QQC2.Page {
 
       font {
         family: AppSingleton.digitalFont.name
-
         pointSize: AppSingleton.averageFontSize
       }
       text: __p.story_1
@@ -213,27 +211,6 @@ QQC2.Page {
     }
   }
 
-  // QQC2.Label {
-  //   id: blinkCursor
-  //   visible: false
-  //   text: "▂▂"
-
-  //   color: "darkorange"
-
-  //   font.family: AppSingleton.droidFont.name
-  //   font.bold: true
-  //   font.pointSize: AppSingleton.averageFontSize
-
-  //   Timer {
-  //     id: timerT1
-  //     interval: AppSingleton.timer500
-  //     repeat: true
-  //     running: stop
-  //     onTriggered: {
-  //       blinkCursor.visible = (blinkCursor.visible) ? false : true
-  //     }
-  //   }
-  // }
   Rectangle {
     id: rect
     visible: false
