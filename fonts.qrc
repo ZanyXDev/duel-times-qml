@@ -4,5 +4,6 @@
         <file>res/fonts/droidsansmono.ttf</file>
         <file>res/fonts/mailrays.ttf</file>
         <file>res/fonts/nasalization-rg.otf</file>
+        <file>res/fonts/china.ttf</file>
     </qresource>
 </RCC>
