@@ -11,11 +11,11 @@ Rectangle {
 
   property alias textFont: mTerminal.font
   property bool enableTypeWriter: false
+
   property bool d: false
   property bool cursorBlink: false
-  property int delay: AppSingleton.timer150
-  property int beginCursorPos: terminalText.length - 1
-  property int endCursorPos: terminalText.length
+  property int delay: 40
+
   property int typeWritePos: 0
   property color shadowColor: "white"
   property color textColor: "darkgreen"
@@ -35,7 +35,10 @@ Rectangle {
 
   onCursorBlinkChanged: {
     if (cursorBlink) {
-      mTerminal.select(root.beginCursorPos, root.endCursorPos)
+      let endCursorPos = mTerminal.text.length
+      let beginCursorPos = endCursorPos - 1
+
+      mTerminal.select(beginCursorPos, endCursorPos)
     } else {
       mTerminal.deselect()
     }
@@ -46,6 +49,7 @@ Rectangle {
     anchors.fill: parent
     readOnly: true
     textMargin: 10
+
     horizontalAlignment: TextEdit.AlignJustify
     wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
     text: root.terminalText
@@ -71,7 +75,8 @@ Rectangle {
   function doTypeWriter() {
     let next_letter = getNext()
     if (next_letter.length !== 0) {
-      root.terminalText = root.terminalText.slice(0, -1) + next_letter + " "
+
+      mTerminal.insert((mTerminal.text.length - 1), next_letter)
     }
   }
 
