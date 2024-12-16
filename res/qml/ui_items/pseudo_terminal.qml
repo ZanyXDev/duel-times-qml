@@ -11,7 +11,7 @@ Rectangle {
   id: root
 
   property alias textFont: mTerminal.font
-  property int delay: 40
+  property int delay: AppSingleton.timer40
 
   property int typeWritePos
   property color shadowColor: "white"
@@ -25,10 +25,10 @@ Rectangle {
 
   layer.effect: DropShadow {
     id: shadow
-    horizontalOffset: 3
-    verticalOffset: 5
+    horizontalOffset: 2
+    verticalOffset: 4
     radius: 8
-    samples: 11
+    samples: 16
     color: root.shadowColor
     opacity: root.shadowOpacity
   }
@@ -127,7 +127,7 @@ Rectangle {
     id: fogAnimation
 
     PauseAnimation {
-      duration: 200
+      duration: AppSingleton.timer200
     }
     /// Fix visiual artefact blink red dots
     PropertyAction {
@@ -141,14 +141,14 @@ Rectangle {
         properties: "emitRate"
         from: 0
         to: 4000
-        duration: 1000
+        duration: AppSingleton.timer1500
       }
 
       PropertyAnimation {
         target: mTerminal
         properties: "opacity"
         to: 0.9
-        duration: 1000
+        duration: AppSingleton.timer1500
       }
     }
 
@@ -157,9 +157,12 @@ Rectangle {
       target: mTerminal
       properties: "opacity"
       to: 0.0
-      duration: 1000
+      duration: AppSingleton.timer1500
     }
 
-    onStopped: fogEmitter.enabled = false
+    onStopped: {
+      fogEmitter.enabled = false
+      typeWriterStoped()
+    }
   }
 }
