@@ -10,13 +10,9 @@ Rectangle {
   id: root
 
   property alias textFont: mTerminal.font
-  property bool enableTypeWriter: false
+  property int delay: 100
 
-  property bool d: false
-  property bool cursorBlink: false
-  property int delay: 40
-
-  property int typeWritePos: 0
+  property int typeWritePos
   property color shadowColor: "white"
   property color textColor: "darkgreen"
   property real shadowOpacity: 0.75
@@ -33,17 +29,6 @@ Rectangle {
     opacity: root.shadowOpacity
   }
 
-  onCursorBlinkChanged: {
-    if (cursorBlink) {
-      let endCursorPos = mTerminal.text.length
-      let beginCursorPos = endCursorPos - 1
-
-      mTerminal.select(beginCursorPos, endCursorPos)
-    } else {
-      mTerminal.deselect()
-    }
-  }
-
   TextEdit {
     id: mTerminal
     anchors.fill: parent
@@ -54,8 +39,6 @@ Rectangle {
     wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
     text: root.terminalText
     color: root.textColor
-    selectedTextColor: root.textColor
-    selectionColor: root.textColor
   }
 
   Timer {
@@ -63,29 +46,16 @@ Rectangle {
     interval: root.delay
     repeat: true
     running: true
-    onTriggered: {
-      if ((root.enableTypeWriter) && (root.sourceText.length !== 0)
-          && (root.typeWritePos < root.sourceText.length)) {
-        root.doTypeWriter()
-      }
-      root.cursorBlink = (root.cursorBlink) ? false : true
-    }
+    onTriggered: (Math.random() < 0.75) ? doTypeWriter() : null
+    onRunningChanged: ((running === false)
+                       && isDebugMode) ? print("Stopped.") : null
   }
 
   function doTypeWriter() {
-    let next_letter = getNext()
-    if (next_letter.length !== 0) {
+    let text = sourceText.slice(0, ++root.typeWritePos)
+    if (text === sourceText)
+      return effectsTimer.stop()
 
-      mTerminal.insert((mTerminal.text.length - 1), next_letter)
-    }
-  }
-
-  function getNext() {
-    let tst = ""
-    if (Math.random() < 0.75) {
-      tst = root.sourceText.slice(root.typeWritePos, root.typeWritePos + 1)
-      root.typeWritePos++
-    }
-    return tst
+    root.terminalText = text
   }
 }
