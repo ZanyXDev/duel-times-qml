@@ -85,6 +85,10 @@ QQC2.ApplicationWindow {
   FadeStackLayout {
     id: fadeLayout
 
+    TestPage {
+      id: testPage
+    }
+
     InitPage {
       id: initPage
       enableMusics: appWnd.enableMusics
@@ -107,9 +111,7 @@ QQC2.ApplicationWindow {
         fadeLayout.currentIndex++
       }
     }
-    TestPage {
-      id: testPage
-    }
+
     Component.onCompleted: {
       initPage.pageActive = true
     }

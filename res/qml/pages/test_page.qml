@@ -146,6 +146,7 @@ QQC2.Page {
 
   PseudoTerminal {
     id: ps_tty
+    visible: true
     anchors.left: parent.left
     anchors.top: parent.top
     anchors.margins: 10
