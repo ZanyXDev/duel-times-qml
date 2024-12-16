@@ -1,3 +1,4 @@
 module ui_items
 ShadersButton 1.0 shaders_button.qml
 ImageButton 1.0 img_button.qml
+PseudoTerminal 1.0 pseudo_terminal.qml

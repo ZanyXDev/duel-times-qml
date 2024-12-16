@@ -130,8 +130,7 @@ QQC2.Page {
 
   ShadersButton {
     id: btn6
-    text: qsTr("Add Item")
-    enabled: !btn1.visible || !btn2.visible || !btn3.visible || !btn4.visible
+    text: qsTr("Start TypeWriter")
 
     anchors {
       left: btn5.right
@@ -141,74 +140,28 @@ QQC2.Page {
     }
 
     onClicked: {
-
+      ps_tty.enableTypeWriter = true
     }
   }
 
-  Rectangle {
+  PseudoTerminal {
+    id: ps_tty
+    visible: true
     anchors.left: parent.left
     anchors.top: parent.top
     anchors.margins: 10
-    width: parent.width - 20
+    width: parent.width - 24
     height: 128
-
     border.color: "darkgrey"
-    color: "grey"
+    color: "black"
     radius: 8
     layer.enabled: true
-    layer.effect: DropShadow {
-      horizontalOffset: 3
-      verticalOffset: 5
-      radius: 8
-      samples: 11
-      color: "white"
-      opacity: 0.75
+    textFont {
+      family: AppSingleton.baseFont.name
+      pointSize: AppSingleton.averageFontSize
     }
-    TextEdit {
-      id: pseudoTerminal
-      property bool blink: false
-
-      QtObject {
-        id: __p
-        readonly property string story_1: qsTr(
-                                            "После одного из заседаний мирового съезда судьи собрались в совещательной комнате, чтобы снять свои мундиры, минутку отдохнуть и ехать домой обедать._")
-      }
-
-      onBlinkChanged: {
-        if (blink) {
-          pseudoTerminal.select(text.length - 1, text.length)
-          pseudoTerminal.selectedTextColor = "grey"
-          pseudoTerminal.selectionColor = "grey"
-        } else {
-          pseudoTerminal.deselect()
-        }
-      }
-
-      anchors.fill: parent
-      readOnly: true
-
-      textMargin: 10
-      horizontalAlignment: TextEdit.AlignJustify
-      wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
-
-      font {
-        family: AppSingleton.digitalFont.name
-        pointSize: AppSingleton.averageFontSize
-      }
-      text: __p.story_1
-      Component.onCompleted: {
-        timerBlink.start()
-      }
-      Timer {
-        id: timerBlink
-        interval: AppSingleton.timer500
-        repeat: true
-        running: stop
-        onTriggered: {
-          pseudoTerminal.blink = (pseudoTerminal.blink) ? false : true
-        }
-      }
-    }
+    sourceText: qsTr(
+                  "The kingdom of mathematics has always been cheerful and flourishing, until an evil wizard arrived and brought darkness everywhere.")
   }
 
   Rectangle {

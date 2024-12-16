@@ -34,9 +34,14 @@ QtObject {
     id: baseFont
     source: "qrc:/res/fonts/nasalization-rg.otf"
   }
+  property FontLoader chinaFont: FontLoader {
+    id: chinaFont
+    source: "qrc:/res/fonts/china.ttf"
+  }
 
   /* This is msecs. Half of second is enough for smooth animation. */
   readonly property int timer16: 16
+  readonly property int timer40: 40
   readonly property int timer150: 150
   readonly property int timer200: 200
   readonly property int timer500: 500
