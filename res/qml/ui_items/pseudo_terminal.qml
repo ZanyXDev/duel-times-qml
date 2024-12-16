@@ -10,14 +10,15 @@ Rectangle {
   id: root
 
   property alias textFont: mTerminal.font
-  property int delay: 100
+  property int delay: 40
 
   property int typeWritePos
   property color shadowColor: "white"
   property color textColor: "darkgreen"
   property real shadowOpacity: 0.75
-  property string sourceText: ""
-  property string terminalText: " "
+  property string sourceText
+  property string terminalText
+  property bool blink: false
 
   layer.effect: DropShadow {
     id: shadow
@@ -29,12 +30,11 @@ Rectangle {
     opacity: root.shadowOpacity
   }
 
-  TextEdit {
+  TextInput {
     id: mTerminal
     anchors.fill: parent
+    anchors.margins: 10
     readOnly: true
-    textMargin: 10
-
     horizontalAlignment: TextEdit.AlignJustify
     wrapMode: TextEdit.WrapAtWordBoundaryOrAnywhere
     text: root.terminalText
@@ -46,16 +46,27 @@ Rectangle {
     interval: root.delay
     repeat: true
     running: true
-    onTriggered: (Math.random() < 0.75) ? doTypeWriter() : null
-    onRunningChanged: ((running === false)
-                       && isDebugMode) ? print("Stopped.") : null
+    onTriggered: {
+      blink = (blink) ? false : true
+      if (Math.random() < 0.75) {
+        doTypeWriter()
+      }
+      (root.terminalText === root.sourceText) ? effectsTimer.stop() : doBlink()
+    }
+    // onRunningChanged: running === false ? root.terminalText = root.terminalText.slice(
+    //                                         0, -1) : null
   }
 
   function doTypeWriter() {
     let text = sourceText.slice(0, ++root.typeWritePos)
-    if (text === sourceText)
-      return effectsTimer.stop()
 
     root.terminalText = text
+  }
+
+  function doBlink() {
+    if (root.terminalText.length > 1) {
+      root.terminalText = root.terminalText.slice(0, -1)
+    }
+    root.terminalText += (blink) ? "|" : " "
   }
 }
